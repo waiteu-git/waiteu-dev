@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>waiteu</title>
+<meta name="description" content="東京理科大生。同じ学生のために使えるツールをつくっています。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #d9724c;
+    --bg: #f7f4ef;
+    --fg: #2b2723;
+    --muted: rgba(43, 39, 35, .6);
+    --muted-strong: rgba(43, 39, 35, .5);
+    --card: #f2ede4;
+    --card-links: #e9e2d6;
+    --footer: rgba(43, 39, 35, .45);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --accent: #e8875f;
+      --bg: #221e1a;
+      --fg: #f2ede6;
+      --muted: rgba(242, 237, 230, .62);
+      --muted-strong: rgba(242, 237, 230, .52);
+      --card: #2c2621;
+      --card-links: #352e27;
+      --footer: rgba(242, 237, 230, .45);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Noto Sans JP", sans-serif;
+    display: flex;
+    justify-content: center;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .page {
+    width: 100%;
+    max-width: 1160px;
+    padding: 64px 24px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: fadeInUp .5s ease both;
+  }
+  .wordmark {
+    font-weight: 800;
+    font-size: 38px;
+    letter-spacing: -0.02em;
+  }
+  .rule {
+    width: 36px;
+    height: 2px;
+    background: var(--accent);
+    margin: 14px 0;
+    border: none;
+  }
+  .bio {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 240px;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 460px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    animation: fadeInUp .5s ease .08s both;
+  }
+  .card:nth-child(2) { animation-delay: .16s; }
+  .card-topbar {
+    height: 4px;
+    background: var(--accent);
+  }
+  .card-body {
+    padding: 22px 22px 24px;
+  }
+  .eyebrow {
+    font-size: 10.5px;
+    letter-spacing: .08em;
+    font-weight: 700;
+    color: var(--muted-strong);
+    margin-bottom: 8px;
+  }
+  .card-title {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .card-desc {
+    margin: 8px 0 16px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  .cta:hover { text-decoration: underline; }
+
+  .links {
+    background: var(--card-links);
+    border-radius: 12px;
+    padding: 10px 18px;
+    display: flex;
+    justify-content: center;
+    gap: 26px;
+    animation: fadeInUp .5s ease .24s both;
+  }
+  .link-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .link-item:hover { opacity: .72; }
+  .badge {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 700 12px ui-monospace, Menlo, monospace;
+    color: var(--fg);
+    flex: none;
+  }
+  .link-label {
+    font-size: 12px;
+    color: var(--fg);
+    font-weight: 500;
+  }
+
+  .footer {
+    font-size: 11.5px;
+    color: var(--footer);
+    animation: fadeInUp .5s ease .3s both;
+  }
+
+  @media (min-width: 760px) {
+    .page {
+      padding: 96px 64px 72px;
+      gap: 64px;
+    }
+    .wordmark { font-size: 60px; }
+    .rule { width: 44px; margin: 18px 0; }
+    .bio { font-size: 17px; max-width: 420px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      max-width: 860px;
+    }
+    .card-body { padding: 36px 32px 40px; }
+    .eyebrow { font-size: 11.5px; margin-bottom: 10px; }
+    .card-title { font-size: 24px; }
+    .card-desc { margin: 12px 0 22px; font-size: 15px; line-height: 1.65; }
+    .cta { font-size: 15px; }
+
+    .links {
+      border-radius: 14px;
+      padding: 14px 28px;
+      gap: 40px;
+    }
+    .link-item { gap: 9px; }
+    .badge { width: 34px; height: 34px; }
+    .link-label { font-size: 13.5px; }
+
+    .footer { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="wordmark">waiteu</div>
+      <hr class="rule">
+      <p class="bio">東京理科大生。同じ学生のために使えるツールをつくっています。</p>
+    </section>
+
+    <section class="cards">
+      <article class="card">
+        <div class="card-topbar"></div>
+        <div class="card-body">
+          <div class="eyebrow">モバイルアプリ</div>
+          <h2 class="card-title">リタス（Litus）</h2>
+          <p class="card-desc">出席・時間割・課題をまとめるモバイルアプリ。</p>
+          <a class="cta" href="https://lms.waiteu.dev/app">事前登録する<span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-topbar"></div>
+        <div class="card-body">
+          <div class="eyebrow">CHROME拡張</div>
+          <h2 class="card-title">LETUS課題ウォッチャー</h2>
+          <p class="card-desc">LETUSの課題期限を自動収集・通知するChrome拡張。</p>
+          <a class="cta" href="https://chromewebstore.google.com/detail/letus-task-watcher/eofgkmpiadoeckkliialkddacidcinml" target="_blank" rel="noopener">Chrome Web Storeで見る<span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </section>
+
+    <nav class="links" aria-label="外部リンク">
+      <a class="link-item" href="https://github.com/waiteu-git" target="_blank" rel="noopener">
+        <span class="badge">GH</span>
+        <span class="link-label">GitHub</span>
+      </a>
+      <a class="link-item" href="https://x.com/yning_y2" target="_blank" rel="noopener">
+        <span class="badge">X</span>
+        <span class="link-label">X</span>
+      </a>
+      <a class="link-item" href="mailto:y2studyabout@gmail.com">
+        <span class="badge">@</span>
+        <span class="link-label">メール</span>
+      </a>
+    </nav>
+
+    <footer class="footer">© waiteu</footer>
+  </main>
+</body>
+</html>

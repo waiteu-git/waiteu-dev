@@ -12,25 +12,28 @@
 <style>
   :root {
     --accent: #d9724c;
+    /* 文字にはaccentを使わない。ライトの#d9724cはカード上で2.79:1しか出ない */
+    --accent-text: #a84726;
     --bg: #f7f4ef;
     --fg: #2b2723;
-    --muted: rgba(43, 39, 35, .6);
-    --muted-strong: rgba(43, 39, 35, .5);
+    --muted: rgba(43, 39, 35, .68);
+    --muted-strong: rgba(43, 39, 35, .66);
     --card: #f2ede4;
     --card-links: #e9e2d6;
-    --footer: rgba(43, 39, 35, .45);
+    --footer: rgba(43, 39, 35, .66);
     --line: rgba(43, 39, 35, .14);
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --accent: #e8875f;
+      --accent-text: #e8875f;
       --bg: #221e1a;
       --fg: #f2ede6;
       --muted: rgba(242, 237, 230, .62);
       --muted-strong: rgba(242, 237, 230, .52);
       --card: #2c2621;
       --card-links: #352e27;
-      --footer: rgba(242, 237, 230, .45);
+      --footer: rgba(242, 237, 230, .52);
       --line: rgba(242, 237, 230, .16);
     }
   }
@@ -177,7 +180,7 @@
     white-space: nowrap;
   }
   .pill-live {
-    color: var(--accent);
+    color: var(--accent-text);
     border-color: var(--accent);
   }
 
@@ -241,7 +244,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: var(--accent);
+    color: var(--accent-text);
     font-weight: 700;
     font-size: 14px;
   }

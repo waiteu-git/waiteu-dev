@@ -123,8 +123,8 @@
   }
   .prose p:last-child { margin-bottom: 0; }
 
-  /* --- スタンス --- */
-  .stances {
+  /* --- 開発ポリシー --- */
+  .policies {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -132,14 +132,14 @@
     flex-direction: column;
     gap: 20px;
   }
-  .stances li {
+  .policies li {
     font-size: 14.5px;
     line-height: 1.9;
     color: var(--muted);
     padding-left: 16px;
     border-left: 2px solid var(--line);
   }
-  .stances strong {
+  .policies strong {
     display: block;
     color: var(--fg);
     font-weight: 700;
@@ -350,7 +350,7 @@
     .section { gap: 28px; }
     .eyebrow { font-size: 11.5px; }
     .prose p { font-size: 16px; }
-    .stances li { font-size: 15px; padding-left: 20px; }
+    .policies li { font-size: 15px; padding-left: 20px; }
     .dedication { font-size: 20px; padding-top: 32px; }
 
     .cards {
@@ -397,15 +397,21 @@
       <h2 class="eyebrow" id="about-heading">ABOUT</h2>
 
       <div class="prose">
-        <p>課題の提出期限を、一度落としかけたことがある。</p>
-        <p>LETUSを開いて履修科目をひとつずつ辿り、締切を目で拾う。必要な情報がLETUSとCLASSに分かれて置かれている。使いづらいものを、気合いで使い続けるしかないのはおかしい。</p>
-        <p>だから自分で作ることにした。まずブラウザ拡張を、次にスマートフォンアプリを。</p>
+        <p>東京理科大の学生に向けて、LETUSとCLASSを使いやすくするツールをつくっています。必要な情報が2つのシステムに分かれて置かれていて、締切を追うだけで手間がかかります。使いづらいものを、気合いで使い続けるしかないのは、おかしなことです。</p>
+        <p>だから自分で作ることにしました。まずブラウザ拡張を、次にスマートフォンアプリを。</p>
       </div>
+    </section>
 
-      <ul class="stances">
-        <li><strong>無料で始める。</strong>学生からお金を取るために作っていないが、安全に、止めずに提供し続けるにはお金がかかる。その負担が無視できなくなったときは、有料化して支援をお願いすることがある。黙って始めることはしない。</li>
-        <li><strong>パスワードは読み取らない。</strong>ログイン情報に触れない設計にしている。</li>
-        <li><strong>動かし続けることを優先する。</strong>機能を足すより壊れないことを選ぶ。学期の途中で止まらないことが、いちばんの機能だと思っている。</li>
+    <section class="section reveal" aria-labelledby="policy-heading">
+      <h2 class="eyebrow" id="policy-heading">POLICY</h2>
+
+      <ul class="policies">
+        <li><strong>無料で始めます。</strong>学生からお金を取るために作っていませんが、安全に、止めずに提供し続けるにはお金がかかります。その負担が無視できなくなったときは、有料化して支援をお願いすることがあります。黙って始めることはしません。</li>
+        <li><strong>パスワードを読み取りません。</strong>ログイン情報に触れない設計にしています。</li>
+        <li><strong>必要のないデータを持ちません。</strong>動作に不要な情報は集めず、集めたものを外部に渡すこともありません。広告は載せず、行動の追跡もしません。</li>
+        <li><strong>動かし続けることを優先します。</strong>機能を足すより、壊れないことを選びます。学期の途中で止まらないことが、いちばんの機能だと思っています。</li>
+        <li><strong>公式のサービスを置き換えません。</strong>LETUSとCLASSは、これからも大学の正式な窓口です。ここでつくるものは、そこへ辿り着くまでを短くするだけの道具です。</li>
+        <li><strong>何をしているか、説明できる状態にします。</strong>変更履歴を公開し、権限や取得するデータの範囲を明示します。</li>
       </ul>
 
       <p class="dedication">日々を生き抜く、すべての理科大生へ。</p>

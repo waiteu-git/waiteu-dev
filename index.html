@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>waiteu</title>
-<meta name="description" content="東京理科大生。同じ学生のために使えるツールをつくっています。">
+<meta name="description" content="東京理科大生。学生のためのツールを、個人でつくっています。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -214,49 +214,117 @@
 </head>
 <body>
   <main class="page">
-    <section class="hero">
+
+    <header class="hero">
       <div class="wordmark">waiteu</div>
       <hr class="rule">
-      <p class="bio">東京理科大生。同じ学生のために使えるツールをつくっています。</p>
+      <p class="lede">東京理科大生。学生のためのツールを、個人でつくっています。</p>
+    </header>
+
+    <section class="section reveal" aria-labelledby="about-heading">
+      <h2 class="eyebrow" id="about-heading">ABOUT</h2>
+
+      <div class="prose">
+        <p>課題の提出期限を、一度落としかけたことがある。</p>
+        <p>LETUSを開いて履修科目をひとつずつ辿り、締切を目で拾う。必要な情報がLETUSとCLASSに分かれて置かれている。使いづらいものを、気合いで使い続けるしかないのはおかしい。</p>
+        <p>だから自分で作ることにした。まずブラウザ拡張を、次にスマートフォンアプリを。</p>
+      </div>
+
+      <ul class="stances">
+        <li><strong>無料で始める。</strong>学生からお金を取るために作っていないが、安全に、止めずに提供し続けるにはお金がかかる。その負担が無視できなくなったときは、有料化して支援をお願いすることがある。黙って始めることはしない。</li>
+        <li><strong>パスワードは読み取らない。</strong>ログイン情報に触れない設計にしている。</li>
+        <li><strong>動かし続けることを優先する。</strong>機能を足すより壊れないことを選ぶ。学期の途中で止まらないことが、いちばんの機能だと思っている。</li>
+      </ul>
+
+      <p class="dedication">日々を生き抜く、すべての理科大生へ。</p>
     </section>
 
-    <section class="cards">
-      <article class="card">
-        <div class="card-topbar"></div>
-        <div class="card-body">
-          <div class="eyebrow">モバイルアプリ</div>
-          <h2 class="card-title">リタス（Litus）</h2>
-          <p class="card-desc">出席・時間割・課題をまとめるモバイルアプリ。</p>
-          <a class="cta" href="https://lms.waiteu.dev/app">事前登録する<span aria-hidden="true">→</span></a>
-        </div>
-      </article>
-      <article class="card">
-        <div class="card-topbar"></div>
-        <div class="card-body">
-          <div class="eyebrow">CHROME拡張</div>
-          <h2 class="card-title">LETUS課題ウォッチャー</h2>
-          <p class="card-desc">LETUSの課題期限を自動収集・通知するChrome拡張。</p>
-          <a class="cta" href="https://chromewebstore.google.com/detail/letus-task-watcher/eofgkmpiadoeckkliialkddacidcinml" target="_blank" rel="noopener">Chrome Web Storeで見る<span aria-hidden="true">→</span></a>
-        </div>
-      </article>
+    <section class="section reveal" aria-labelledby="products-heading">
+      <h2 class="eyebrow" id="products-heading">PRODUCTS</h2>
+
+      <div class="cards">
+        <a class="card" href="https://lms.waiteu.dev/app">
+          <span class="card-topbar" aria-hidden="true"></span>
+          <span class="card-body">
+            <span class="card-meta">
+              <span class="card-kind">モバイルアプリ</span>
+              <span class="pill pill-soon">事前登録受付中</span>
+            </span>
+            <span class="card-title">リタス（Litus）</span>
+            <span class="card-desc">LETUSもCLASSも、スマホひとつに。時間割・出席・課題をまとめる。</span>
+            <span class="cta">事前登録ページへ<span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+
+        <a class="card" href="https://lms.waiteu.dev/">
+          <span class="card-topbar" aria-hidden="true"></span>
+          <span class="card-body">
+            <span class="card-meta">
+              <span class="card-kind">Chrome拡張</span>
+              <span class="pill pill-live">公開中</span>
+            </span>
+            <span class="card-title">LETUS課題ウォッチャー</span>
+            <span class="card-desc">LETUSの課題期限を自動で集めて、締切前に通知する。</span>
+            <span class="cta">紹介ページへ<span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+      </div>
     </section>
 
-    <nav class="links" aria-label="外部リンク">
-      <a class="link-item" href="https://github.com/waiteu-git" target="_blank" rel="noopener">
-        <span class="badge">GH</span>
-        <span class="link-label">GitHub</span>
-      </a>
-      <a class="link-item" href="https://x.com/yning_y2" target="_blank" rel="noopener">
-        <span class="badge">X</span>
-        <span class="link-label">X</span>
-      </a>
-      <a class="link-item" href="mailto:y2studyabout@gmail.com">
-        <span class="badge">@</span>
-        <span class="link-label">メール</span>
-      </a>
-    </nav>
+    <section class="section reveal" aria-labelledby="roadmap-heading">
+      <h2 class="eyebrow" id="roadmap-heading">ROADMAP</h2>
+
+      <ol class="timeline">
+        <li class="phase">
+          <div class="phase-head">
+            <span class="phase-no">フェーズ1</span>
+            <span class="pill pill-live">公開中</span>
+          </div>
+          <h3 class="phase-title">LETUS課題ウォッチャー</h3>
+          <p class="phase-desc">課題の自動収集と締切通知</p>
+        </li>
+        <li class="phase">
+          <div class="phase-head">
+            <span class="phase-no">フェーズ2</span>
+            <span class="pill pill-wip">進行中</span>
+          </div>
+          <h3 class="phase-title">CLASS連携</h3>
+          <p class="phase-desc">時間割と出席を、課題と同じ場所に</p>
+        </li>
+        <li class="phase">
+          <div class="phase-head">
+            <span class="phase-no">フェーズ3</span>
+            <span class="pill pill-soon">準備中</span>
+          </div>
+          <h3 class="phase-title">リタス</h3>
+          <p class="phase-desc">すべてをスマートフォンへ</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section reveal" aria-labelledby="contact-heading">
+      <h2 class="eyebrow" id="contact-heading">CONTACT</h2>
+
+      <p class="prose">うまくいかないことがあれば、教えてください。使っている人の困りごとが、いちばん確かな手がかりです。</p>
+
+      <nav class="links" aria-label="外部リンク">
+        <a class="link-item" href="https://github.com/waiteu-git" target="_blank" rel="noopener">
+          <span class="badge">GH</span>
+          <span class="link-label">GitHub</span>
+        </a>
+        <a class="link-item" href="https://x.com/yning_y2" target="_blank" rel="noopener">
+          <span class="badge">X</span>
+          <span class="link-label">X</span>
+        </a>
+        <a class="link-item" href="mailto:y2studyabout@gmail.com">
+          <span class="badge">@</span>
+          <span class="link-label">メール</span>
+        </a>
+      </nav>
+    </section>
 
     <footer class="footer">© waiteu</footer>
+
   </main>
 </body>
 </html>

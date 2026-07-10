@@ -4,7 +4,7 @@
     {
       "name": "waiteu-dev",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["--yes", "serve", "--listen", "4173", "."],
+      "runtimeArgs": ["--yes", "serve", "--listen", "4173", "public"],
       "port": 4173
     }
   ]

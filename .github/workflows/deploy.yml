@@ -17,4 +17,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 86bd0bb1fdf20aca6300c9bb1a0fa7c4
-          command: pages deploy . --project-name=waiteu-dev --branch=master --commit-dirty=true
+          command: pages deploy public --project-name=waiteu-dev --branch=master --commit-dirty=true

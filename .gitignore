@@ -1,2 +1,5 @@
 .wrangler/
 node_modules/
+
+# 内部の設計・計画メモは非公開（ローカル保持）
+docs/

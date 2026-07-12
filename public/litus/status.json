@@ -1,5 +1,5 @@
 {
   "schemaVersion": 1,
-  "disabled": ["attendance", "bulletin", "letus"],
+  "disabled": ["all"],
   "message": "動作確認中です。まもなく復帰します。ご不便をおかけします。"
 }

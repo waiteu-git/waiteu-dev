@@ -1,0 +1,3 @@
+# リタスのリモートkill switch。停止指示の伝播を最速にするためキャッシュさせない。
+/litus/status.json
+  Cache-Control: no-store

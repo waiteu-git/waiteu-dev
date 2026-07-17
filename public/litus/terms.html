@@ -7,30 +7,34 @@
 <title>リタス（Litus）利用規約 — waiteu</title>
 <meta name="description" content="東京理科大学の学生向け非公式モバイルアプリ「リタス（Litus）」の利用規約。">
 <meta name="robots" content="index, follow">
+<link rel="canonical" href="https://waiteu.dev/litus/terms">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --accent: #d9724c;
+    /* 文字にはaccentを使わない。ライトの#d9724cは2.96:1しか出ない */
+    --accent-text: #a84726;
     --bg: #f7f4ef;
     --fg: #2b2723;
-    --muted: rgba(43, 39, 35, .62);
-    --muted-strong: rgba(43, 39, 35, .5);
+    --muted: rgba(43, 39, 35, .68);
+    --muted-strong: rgba(43, 39, 35, .66);
     --card: #f2ede4;
     --line: rgba(43, 39, 35, .12);
-    --footer: rgba(43, 39, 35, .45);
+    --footer: rgba(43, 39, 35, .66);
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --accent: #e8875f;
+      --accent-text: #e8875f;
       --bg: #221e1a;
       --fg: #f2ede6;
       --muted: rgba(242, 237, 230, .64);
       --muted-strong: rgba(242, 237, 230, .52);
       --card: #2c2621;
       --line: rgba(242, 237, 230, .14);
-      --footer: rgba(242, 237, 230, .45);
+      --footer: rgba(242, 237, 230, .52);
     }
   }
 
@@ -68,7 +72,7 @@
     text-decoration: none;
     margin-bottom: 28px;
   }
-  .back:hover { color: var(--accent); }
+  .back:hover { color: var(--accent-text); }
 
   h1 {
     font-size: 26px;
@@ -103,7 +107,7 @@
     padding-top: 6px;
   }
   h2 .num {
-    color: var(--accent);
+    color: var(--accent-text);
     margin-right: 8px;
   }
   p { margin: 0 0 12px; font-size: 14px; color: var(--fg); }
@@ -123,7 +127,7 @@
     gap: 10px;
   }
   .footer a { color: var(--footer); text-decoration: none; }
-  .footer a:hover { color: var(--accent); }
+  .footer a:hover { color: var(--accent-text); }
 
   @media (min-width: 760px) {
     .page { padding: 88px 40px 88px; }
@@ -131,6 +135,16 @@
     .lead { font-size: 15.5px; }
     h2 { font-size: 19px; }
     p, li { font-size: 15px; }
+  }
+
+  /* --- モーション抑制 --- */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 </style>
 </head>
@@ -208,7 +222,7 @@
       </ul>
     </section>
 
-    <p class="fine" style="font-size:12.5px;">事前登録: <a href="https://litus.waiteu.dev/" style="color:var(--accent);text-decoration:none;">litus.waiteu.dev</a></p>
+    <p class="fine" style="font-size:12.5px;">事前登録: <a href="https://litus.waiteu.dev/" style="color:var(--accent-text);text-decoration:none;">litus.waiteu.dev</a></p>
 
     <div class="footer">
       <span>© waiteu</span>

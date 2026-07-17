@@ -5,7 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>waiteu</title>
-<meta name="description" content="東京理科大生。学生のためのツールを、個人でつくっています。">
+<meta name="description" content="東京理科大生。学生のためのツールを、個人でつくっています。東京理科大学とは無関係の非公式プロジェクトです。">
+<link rel="canonical" href="https://waiteu.dev/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://waiteu.dev/">
+<meta property="og:title" content="waiteu — 学生のためのツールを、個人でつくっています">
+<meta property="og:description" content="LETUS Task Watcher と リタス（Litus）。東京理科大学とは無関係の非公式プロジェクトです。">
+<meta property="og:image" content="https://waiteu.dev/og.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@yning_y2">
+<meta name="twitter:image" content="https://waiteu.dev/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -82,6 +92,7 @@
   /* --- Hero --- */
   .hero { animation: fadeInUp .5s ease both; }
   .wordmark {
+    margin: 0;
     font-weight: 800;
     font-size: 40px;
     letter-spacing: -0.02em;
@@ -388,7 +399,7 @@
   <main class="page">
 
     <header class="hero">
-      <div class="wordmark">waiteu</div>
+      <h1 class="wordmark">waiteu</h1>
       <hr class="rule">
       <p class="lede">東京理科大生。学生のためのツールを、個人でつくっています。</p>
     </header>
@@ -406,7 +417,7 @@
       <h2 class="eyebrow" id="policy-heading">POLICY</h2>
 
       <ul class="policies">
-        <li><strong>無料で始めます。</strong>学生からお金を取るために作っていませんが、安全に、止めずに提供し続けるにはお金がかかります。その負担が無視できなくなったときは、有料化して支援をお願いすることがあります。黙って始めることはしません。</li>
+        <li><strong>大学の情報に届く機能は、無料のままにします。</strong>課題の締切や時間割にたどり着くための機能で、お金を取ることはしません。安全に、止めずに提供し続けるにはお金がかかるので、その負担が無視できなくなったときは、自分がつくった快適さの部分だけ有料でお願いすることがあります。長くまとめて前払いさせることはせず、返金にも応じます。黙って始めることはしません。</li>
         <li><strong>パスワードを読み取りません。</strong>ログイン情報に触れない設計にしています。</li>
         <li><strong>必要のないデータを持ちません。</strong>動作に不要な情報は集めず、集めたものを外部に渡すこともありません。広告は載せず、行動の追跡もしません。</li>
         <li><strong>動かし続けることを優先します。</strong>機能を足すより、壊れないことを選びます。学期の途中で止まらないことが、いちばんの機能だと思っています。</li>
@@ -438,7 +449,7 @@
           <span class="card-topbar" aria-hidden="true"></span>
           <span class="card-body">
             <span class="card-meta">
-              <span class="card-kind">Chrome拡張</span>
+              <span class="card-kind">Chrome / Edge拡張</span>
               <span class="pill pill-live">公開中</span>
             </span>
             <span class="card-title">LETUS Task Watcher</span>
@@ -483,7 +494,9 @@
     <section class="section reveal" aria-labelledby="contact-heading">
       <h2 class="eyebrow" id="contact-heading">CONTACT</h2>
 
-      <p class="prose">うまくいかないことがあれば、教えてください。使っている人の困りごとが、いちばん確かな手がかりです。</p>
+      <div class="prose">
+        <p>うまくいかないことがあれば、教えてください。使っている人の困りごとが、いちばん確かな手がかりです。</p>
+      </div>
 
       <nav class="links" aria-label="外部リンク">
         <a class="link-item" href="https://github.com/waiteu-git" target="_blank" rel="noopener">
@@ -501,7 +514,7 @@
       </nav>
     </section>
 
-    <footer class="footer">© waiteu</footer>
+    <footer class="footer">© waiteu ・ 東京理科大学非公式の学生個人プロジェクトです。大学およびLETUS・CLASSの運営とは関係ありません。</footer>
 
   </main>
 
@@ -513,7 +526,9 @@
 
       root.classList.add('js');
 
+      var notified = false;
       var observer = new IntersectionObserver(function (entries) {
+        notified = true;
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
           entry.target.classList.add('is-visible');
@@ -524,6 +539,17 @@
       document.querySelectorAll('.reveal').forEach(function (el) {
         observer.observe(el);
       });
+
+      // IntersectionObserverが在っても一度も発火しない環境がある（一部のWebView・
+      // オフスクリーン描画など）。隠しているのはJSなので、そこで黙ると本文が永久に
+      // 消える。初回通知が来なければ隠すのをやめる。仕様上、動く環境では観測開始
+      // 直後に必ず通知が来るので notified が立ち、この保険は何もしない。
+      setTimeout(function () {
+        if (notified) return;
+        document.querySelectorAll('.reveal').forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+      }, 2000);
     })();
   </script>
 </body>

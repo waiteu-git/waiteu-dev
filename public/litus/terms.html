@@ -139,7 +139,7 @@
     <a class="back" href="https://waiteu.dev/"><span aria-hidden="true">←</span> waiteu.dev</a>
 
     <h1>リタス（Litus）利用規約</h1>
-    <p class="meta">版（TERMS_VERSION）: 3 ／ 制定・最終改定日: 2026-07-11（JST）</p>
+    <p class="meta">版（TERMS_VERSION）: 3 ／ 制定・最終改定日: 2026-07-16（JST）</p>
     <hr class="rule">
 
     <p class="lead">本規約は、アプリ「リタス（Litus）」（以下「本アプリ」）の利用条件を定めるものです。本アプリを利用するには、本規約への同意が必要です。起動時の同意画面で「同意して始める」を押した時点で、本規約に同意したものとみなします。</p>
@@ -161,8 +161,10 @@
       <h2><span class="num">3.</span>取得する情報の範囲・通信先</h2>
       <ul>
         <li>CLASS（履修システム）から取得するのは、<strong>履修科目・時間割・出席・掲示</strong>に関する情報のみです。成績等の機微な情報は取得しません。</li>
-        <li>通信先は、LETUS／CLASS／本アプリの自前バックエンド（<code>lms.waiteu.dev</code>）に限られます。</li>
-        <li>本アプリは、自前バックエンド（<code>lms.waiteu.dev</code>）に対して、<strong>利用者個人を特定できる形での情報の送信を行いません</strong>。通知は端末内でローカルに予約され、送信を伴いません。</li>
+        <li>本アプリが自ら通信する先は、LETUS（<code>letus.ed.tus.ac.jp</code>）／CLASS（<code>class.admin.tus.ac.jp</code>）および大学のログイン基盤（SSO）／稼働状況の確認先（<code>waiteu.dev</code>：不具合の判明時や大学からの要請時に機能を停止するための、停止指示ファイルの取得のみ）／本アプリの自前バックエンド（<code>api.waiteu.dev</code>）に限られます。</li>
+        <li>本アプリは、自前バックエンド（<code>api.waiteu.dev</code>）に対して、<strong>利用者個人を特定できる形での情報の送信を行いません</strong>。通知は端末内でローカルに予約され、送信を伴いません。</li>
+        <li>公開前のお知らせメールの<strong>事前登録</strong>は、本アプリの機能ではなくWebページ（<code>litus.waiteu.dev</code>）のフォームです。ご自身で登録された場合に限り、入力されたメールアドレスが自前バックエンド（<code>api.waiteu.dev</code>）へ送信・保存されます（保存するのはメールアドレス・登録元・登録日時のみで、IPアドレスは保存しません）。詳細は<a href="https://litus.waiteu.dev/app-privacy" target="_blank" rel="noopener">プライバシーポリシー</a>をご覧ください。</li>
+        <li>アプリ内の学食・図書館・時刻表などのリンクは、タップすると端末のブラウザで外部サイトが開くものであり、本アプリが情報を送信するものではありません。</li>
         <li>各回の予定（休講・補講・教室変更・小テスト等）や手動追加の課題など、利用者が入力した情報は端末内に保存されます。</li>
       </ul>
     </section>
@@ -206,7 +208,7 @@
       </ul>
     </section>
 
-    <p class="fine" style="font-size:12.5px;">事前登録: <a href="https://lms.waiteu.dev/app" style="color:var(--accent);text-decoration:none;">lms.waiteu.dev/app</a></p>
+    <p class="fine" style="font-size:12.5px;">事前登録: <a href="https://litus.waiteu.dev/" style="color:var(--accent);text-decoration:none;">litus.waiteu.dev</a></p>
 
     <div class="footer">
       <span>© waiteu</span>

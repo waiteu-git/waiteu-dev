@@ -11,9 +11,11 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      # 外部actionはSHA固定。タグは可動で、乗っ取られると CLOUDFLARE_API_TOKEN が読まれ、
+      # サイト改竄と kill switch の無力化に直結する。更新時はタグのSHAを引き直すこと。
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 86bd0bb1fdf20aca6300c9bb1a0fa7c4

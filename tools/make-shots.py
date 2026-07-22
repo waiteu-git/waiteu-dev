@@ -28,10 +28,27 @@ os.makedirs(OUT, exist_ok=True)
 os.makedirs(TMP, exist_ok=True)
 
 
-def shoot(name, w, h):
-    """プレビューHTMLをPNGに焼く。2倍解像度で撮る（戻り値は物理px = CSS px x2）。"""
+def shoot(name, w, h, hide=None):
+    """プレビューHTMLをPNGに焼く。2倍解像度で撮る（戻り値は物理px = CSS px x2）。
+
+    hide: 撮影時のみ非表示にするCSSセレクタのリスト。プレビューページ専用の
+    操作UI（ダークモード切替トグル等）は製品スクリーンショットに写ってはいけないが、
+    元のHTML（litus-design側の共有プレビュー）は編集しない。TMP に
+    `<style>{sel}{display:none!important}</style>` を注入したコピーを作り、
+    それを撮る。トグルは position:fixed で通常フローから外れているため、
+    非表示にしても他要素のレイアウトは変わらない。
+    """
+    src_path = os.path.join(SCREENS, name + ".html")
+    if hide:
+        html = open(src_path, encoding="utf-8").read()
+        style = "<style>" + ",".join(hide) + "{display:none!important}</style>\n</head>"
+        assert "</head>" in html
+        html = html.replace("</head>", style, 1)
+        src_path = os.path.join(TMP, name + ".shot.html")
+        with open(src_path, "w", encoding="utf-8") as f:
+            f.write(html)
     dst = os.path.join(TMP, name + ".png")
-    src = os.path.join(SCREENS, name + ".html").replace("\\", "/")
+    src = src_path.replace("\\", "/")
     subprocess.run(
         [
             CHROME,
@@ -67,21 +84,33 @@ def build_litus():
     - home.html は中央が大きく空いていて地味（掲示詳細の方が内容が詰まっている）
 
     どちらのHTMLも「ちょうど390px幅」で撮ると本文の右端が数文字分欠ける
-    レイアウト不具合があるため（assignments.html は右上の同期ラベルが
-    ダーク切替ボタンとぶつかる/隠れる、bulletin-detail.html は
+    レイアウト不具合があるため（bulletin-detail.html は
     `.screen{max-width:390px}` の中身自体が右にはみ出して切れる）、
     余裕を持たせた幅で撮ってから対象領域だけ切り出す。
     assignments.html 下部のデバッグ用状態切替行（通常/全提出/未同期/エラー）は
     position:fixed でビューポート下端に張り付くため、十分な高さで撮って
     本文の末尾で切り捨てることで除外する。
+
+    どちらの画面にもプレビューページ専用のダークモード切替トグル
+    （`.theme-toggle`、position:fixed;top/right固定）が右上に乗っている。
+    このトグルは製品UIではないため常に非表示にして撮る。
+    トグルもラベルも「ビューポート右端からの固定オフセット」で位置決めされて
+    いるため、撮影幅を変えても両者の重なりは解消しない（試して確認済み）。
+    bulletin-detail.html はたまたま横クロップの範囲外に収まっていたが、
+    assignments.html は本文が画面幅いっぱいまで使うレイアウトのため横
+    クロップでは避けられない。よって shoot() 側で CSS 注入により非表示にする。
     """
-    # 課題一覧: 幅可変レイアウト。480px幅で撮ると右上の同期ラベルが欠けない。
+    # 課題一覧: 幅可変レイアウト。480px幅で撮ると右上の同期ラベルが
+    # flexの折返しで欠けることはない（ただし同期ラベルとトグルの重なりは
+    # 幅に関係なく起きるため hide=[".theme-toggle"] で別途対処）。
     # 本文は y=1821(物理px)で終わり、その先は下部デバッグ行までただの余白。
-    assignments = shoot("assignments", 480, 1200).crop((0, 0, 960, 1840))
+    assignments = shoot("assignments", 480, 1200, hide=[".theme-toggle"]) \
+        .crop((0, 0, 960, 1840))
 
     # 掲示詳細: 390pxちょうどで撮ると本文が右端で切れる（既知の描画不具合）。
     # 600px幅で撮り、画面本体(x=210..990)だけを切り出す。
-    bulletin = shoot("bulletin-detail", 600, 1600).crop((210, 0, 990, 1955))
+    bulletin = shoot("bulletin-detail", 600, 1600, hide=[".theme-toggle"]) \
+        .crop((210, 0, 990, 1955))
 
     phones = [assignments, bulletin]
     scaled = []

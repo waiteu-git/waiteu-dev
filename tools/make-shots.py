@@ -28,8 +28,8 @@ os.makedirs(OUT, exist_ok=True)
 os.makedirs(TMP, exist_ok=True)
 
 
-def shoot(name, w=390, h=844):
-    """プレビューHTMLをPNGに焼く。2倍解像度で撮る。"""
+def shoot(name, w, h):
+    """プレビューHTMLをPNGに焼く。2倍解像度で撮る（戻り値は物理px = CSS px x2）。"""
     dst = os.path.join(TMP, name + ".png")
     src = os.path.join(SCREENS, name + ".html").replace("\\", "/")
     subprocess.run(
@@ -60,7 +60,30 @@ def rounded(im, radius):
 
 
 def build_litus():
-    phones = [shoot("home"), shoot("timetable")]
+    """課題一覧（枠なし・実データ風）＋掲示詳細（端末幅）の2枚を並べる。
+
+    home.html と timetable.html は不採用:
+    - timetable.html はグリッドが描画されず実質空（ヘッダーとボタンのみ）
+    - home.html は中央が大きく空いていて地味（掲示詳細の方が内容が詰まっている）
+
+    どちらのHTMLも「ちょうど390px幅」で撮ると本文の右端が数文字分欠ける
+    レイアウト不具合があるため（assignments.html は右上の同期ラベルが
+    ダーク切替ボタンとぶつかる/隠れる、bulletin-detail.html は
+    `.screen{max-width:390px}` の中身自体が右にはみ出して切れる）、
+    余裕を持たせた幅で撮ってから対象領域だけ切り出す。
+    assignments.html 下部のデバッグ用状態切替行（通常/全提出/未同期/エラー）は
+    position:fixed でビューポート下端に張り付くため、十分な高さで撮って
+    本文の末尾で切り捨てることで除外する。
+    """
+    # 課題一覧: 幅可変レイアウト。480px幅で撮ると右上の同期ラベルが欠けない。
+    # 本文は y=1821(物理px)で終わり、その先は下部デバッグ行までただの余白。
+    assignments = shoot("assignments", 480, 1200).crop((0, 0, 960, 1840))
+
+    # 掲示詳細: 390pxちょうどで撮ると本文が右端で切れる（既知の描画不具合）。
+    # 600px幅で撮り、画面本体(x=210..990)だけを切り出す。
+    bulletin = shoot("bulletin-detail", 600, 1600).crop((210, 0, 990, 1955))
+
+    phones = [assignments, bulletin]
     scaled = []
     for p in phones:
         w = round(p.size[0] * PHONE_H / p.size[1])

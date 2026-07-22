@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>事業者情報 — waiteu</title>
+<meta name="description" content="waiteu（個人事業主）の事業者情報。屋号・開業日・所在地・連絡先・提供サービス。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://waiteu.dev/company">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #d9724c;
+    /* 文字にはaccentを使わない。ライトの#d9724cは2.96:1しか出ない */
+    --accent-text: #a84726;
+    --bg: #f7f4ef;
+    --fg: #2b2723;
+    --muted: rgba(43, 39, 35, .68);
+    --muted-strong: rgba(43, 39, 35, .66);
+    --line: rgba(43, 39, 35, .12);
+    --footer: rgba(43, 39, 35, .66);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --accent: #e8875f;
+      --accent-text: #e8875f;
+      --bg: #221e1a;
+      --fg: #f2ede6;
+      --muted: rgba(242, 237, 230, .64);
+      --muted-strong: rgba(242, 237, 230, .52);
+      --line: rgba(242, 237, 230, .14);
+      --footer: rgba(242, 237, 230, .52);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Noto Sans JP", sans-serif;
+    display: flex;
+    justify-content: center;
+    line-height: 1.75;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .page {
+    width: 100%;
+    max-width: 760px;
+    padding: 56px 24px 64px;
+    animation: fadeInUp .5s ease both;
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 28px;
+  }
+  .back:hover { color: var(--accent-text); }
+
+  h1 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+  }
+  .lead {
+    font-size: 14.5px;
+    color: var(--muted);
+    margin: 0 0 4px;
+  }
+  .rule {
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    border: none;
+    margin: 18px 0 30px;
+  }
+
+  .info {
+    margin: 0 0 36px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .info div {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .info dt {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: var(--muted-strong);
+  }
+  .info dd {
+    margin: 0;
+    font-size: 15px;
+    color: var(--fg);
+  }
+  .info a { color: var(--accent-text); }
+
+  h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+  .services {
+    list-style: none;
+    margin: 0 0 12px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .services li {
+    font-size: 14.5px;
+    line-height: 1.9;
+    color: var(--muted);
+    padding-left: 16px;
+    border-left: 2px solid var(--line);
+  }
+  .services strong {
+    display: block;
+    color: var(--fg);
+    font-weight: 700;
+  }
+  .services a { color: var(--accent-text); }
+
+  .footer {
+    margin-top: 44px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--footer);
+  }
+  .footer a { color: var(--footer); }
+
+  @media (min-width: 760px) {
+    .page { padding: 88px 40px 88px; }
+    h1 { font-size: 32px; }
+    .lead { font-size: 15.5px; }
+    h2 { font-size: 19px; }
+    .info div { grid-template-columns: 180px 1fr; gap: 16px; align-items: baseline; }
+    .info dd { font-size: 15.5px; }
+    .services li { font-size: 15px; padding-left: 20px; }
+  }
+
+  /* --- モーション抑制 --- */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="page">
+
+    <a class="back" href="/"><span aria-hidden="true">←</span> waiteu.dev</a>
+
+    <h1>事業者情報</h1>
+    <p class="lead">東京理科大学の学生向けツールを個人で開発・運用しています。</p>
+    <hr class="rule">
+
+    <dl class="info">
+      <div><dt>屋号</dt><dd>waiteu</dd></div>
+      <div><dt>形態</dt><dd>個人事業主</dd></div>
+      <div><dt>開業</dt><dd>2026年7月5日</dd></div>
+      <div><dt>所在地</dt><dd>〒150-0043 東京都渋谷区道玄坂1丁目10番8号渋谷道玄坂東急ビル2F−C</dd></div>
+      <div><dt>連絡先</dt><dd><a href="mailto:contact@waiteu.dev">contact@waiteu.dev</a></dd></div>
+      <div><dt>事業内容</dt><dd>モバイルアプリ・ブラウザ拡張機能の開発・運用</dd></div>
+    </dl>
+
+    <h2>提供サービス</h2>
+    <ul class="services">
+      <li>
+        <strong>LETUS Task Watcher</strong>
+        LETUSの課題期限を自動で集めて、締切前に通知するブラウザ拡張。Chrome ウェブストアと Microsoft Edge アドオンで公開中。
+        <a href="https://lms.waiteu.dev/">紹介ページ</a>
+      </li>
+      <li>
+        <strong>リタス（Litus）</strong>
+        LETUSとCLASSをまとめるモバイルアプリ。2026年後期の公開に向けて開発中。
+        <a href="https://litus.waiteu.dev/">事前登録ページ</a>
+      </li>
+    </ul>
+
+    <div class="footer">
+      © waiteu ・ 東京理科大学非公式の学生個人プロジェクトです。大学およびLETUS・CLASSの運営とは関係ありません。
+    </div>
+
+  </main>
+</body>
+</html>

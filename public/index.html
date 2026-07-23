@@ -18,45 +18,61 @@
 <meta name="twitter:image" content="https://waiteu.dev/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --accent: #d9724c;
-    /* 文字にはaccentを使わない。ライトの#d9724cはカード上で2.79:1しか出ない */
     --accent-text: #a84726;
+    --accent-soft: rgba(217, 114, 76, .12);
     --bg: #f7f4ef;
+    --bg-tint: #f2ede4;
     --fg: #2b2723;
-    --muted: rgba(43, 39, 35, .68);
-    --muted-strong: rgba(43, 39, 35, .66);
-    --card: #f2ede4;
-    --card-links: #e9e2d6;
-    --footer: rgba(43, 39, 35, .66);
-    --line: rgba(43, 39, 35, .14);
+    --heading: #22201c;
+    --muted: rgba(43, 39, 35, .70);
+    --muted-strong: rgba(43, 39, 35, .60);
+    --card: #fbf9f5;
+    --card-links: #ece5d9;
+    --line: rgba(43, 39, 35, .12);
+    --line-strong: rgba(43, 39, 35, .22);
+    --shadow: 0 1px 2px rgba(43,39,35,.04), 0 12px 32px rgba(43,39,35,.08);
+    --wrap: 960px;
+    --prose: 660px;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --accent: #e8875f;
-      --accent-text: #e8875f;
-      --bg: #221e1a;
+      --accent-text: #ef9873;
+      --accent-soft: rgba(232, 135, 95, .14);
+      --bg: #1a1613;
+      --bg-tint: #221d18;
       --fg: #f2ede6;
-      --muted: rgba(242, 237, 230, .62);
-      --muted-strong: rgba(242, 237, 230, .52);
-      --card: #2c2621;
-      --card-links: #352e27;
-      --footer: rgba(242, 237, 230, .52);
-      --line: rgba(242, 237, 230, .16);
+      --heading: #f6f1ea;
+      --muted: rgba(242, 237, 230, .64);
+      --muted-strong: rgba(242, 237, 230, .50);
+      --card: #231d18;
+      --card-links: #2c2620;
+      --line: rgba(242, 237, 230, .12);
+      --line-strong: rgba(242, 237, 230, .22);
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 16px 40px rgba(0,0,0,.4);
     }
   }
 
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
   body {
-    min-height: 100vh;
     background: var(--bg);
     color: var(--fg);
     font-family: "Noto Sans JP", sans-serif;
     line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
+  .mono {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+    letter-spacing: .06em;
+  }
+  a { color: inherit; }
 
   :focus-visible {
     outline: 2px solid var(--accent);
@@ -64,509 +80,441 @@
     border-radius: 4px;
   }
 
-  .page {
-    width: 100%;
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 72px 24px 56px;
+  .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+
+  /* ============ Hero ============ */
+  .hero {
+    position: relative;
+    min-height: 88vh;
     display: flex;
-    flex-direction: column;
-    gap: 72px;
+    align-items: center;
+    padding: 96px 0 64px;
+    overflow: hidden;
   }
-
-  /* --- 出現アニメーション（JS有効時のみ隠す） --- */
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(80% 60% at 78% 12%, var(--accent-soft), transparent 60%),
+      radial-gradient(60% 50% at 8% 92%, var(--accent-soft), transparent 55%);
+    pointer-events: none;
   }
-  html.js .reveal {
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity .6s ease, transform .6s ease;
+  .hero-inner { position: relative; }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    color: var(--muted-strong);
+    margin: 0 0 30px;
+    text-transform: uppercase;
   }
-  html.js .reveal.is-visible {
-    opacity: 1;
-    transform: none;
+  .hero-eyebrow::before {
+    content: "";
+    width: 22px; height: 1px; background: var(--line-strong);
   }
-
-  /* --- Hero --- */
-  .hero { animation: fadeInUp .5s ease both; }
   .wordmark {
     margin: 0;
-    font-weight: 800;
-    font-size: 40px;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+    font-weight: 900;
+    font-size: clamp(64px, 13vw, 128px);
+    letter-spacing: -0.035em;
+    line-height: .96;
+    color: var(--heading);
   }
-  .rule {
-    width: 36px;
-    height: 2px;
-    background: var(--accent);
-    margin: 16px 0;
-    border: none;
+  .hero-lede {
+    margin: 28px 0 0;
+    max-width: 24em;
+    font-size: clamp(19px, 2.4vw, 26px);
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--fg);
   }
-  .lede {
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.8;
+  .hero-sub {
+    margin: 14px 0 0;
+    max-width: 40ch;
+    font-size: clamp(14px, 1.5vw, 16px);
     color: var(--muted);
   }
-
-  /* --- セクション共通 --- */
-  .section {
+  .hero-cta {
+    margin-top: 40px;
     display: flex;
-    flex-direction: column;
-    gap: 24px;
+    flex-wrap: wrap;
+    gap: 14px;
   }
-  .eyebrow {
-    margin: 0;
-    font-size: 11px;
-    letter-spacing: .12em;
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-size: 14px;
     font-weight: 700;
-    color: var(--muted-strong);
+    text-decoration: none;
+    transition: transform .16s ease, background .16s ease, border-color .16s ease;
   }
+  .btn-primary { background: var(--accent); color: #fff; }
+  @media (prefers-color-scheme: dark) { .btn-primary { color: #1a1613; } }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-ghost { border: 1.5px solid var(--line-strong); color: var(--fg); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent-text); transform: translateY(-2px); }
+  .btn .arrow { transition: transform .16s ease; }
+  .btn:hover .arrow { transform: translateX(3px); }
 
-  .prose { margin: 0; }
-  .prose p {
-    margin: 0 0 18px;
-    font-size: 15px;
-    line-height: 1.9;
+  /* ============ Section ============ */
+  .section { padding: 72px 0; }
+  .section + .section { border-top: 1px solid var(--line); }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin: 0 0 36px;
   }
+  .sec-no {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-text);
+  }
+  .sec-title {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    color: var(--muted-strong);
+    text-transform: uppercase;
+  }
+  .sec-head .line { flex: 1; height: 1px; background: var(--line); }
+
+  .prose { max-width: var(--prose); }
+  .prose .lead {
+    font-size: clamp(17px, 2vw, 20px);
+    font-weight: 500;
+    line-height: 1.9;
+    color: var(--fg);
+    margin: 0 0 20px;
+  }
+  .prose p { margin: 0 0 18px; font-size: 16px; line-height: 1.95; color: var(--muted); }
   .prose p:last-child { margin-bottom: 0; }
 
-  /* --- 開発ポリシー --- */
+  /* ============ Policy ============ */
   .policies {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    list-style: none; margin: 0; padding: 0;
+    display: grid; gap: 20px;
   }
+  @media (min-width: 720px) { .policies { grid-template-columns: 1fr 1fr; gap: 20px 40px; } }
   .policies li {
+    position: relative;
+    padding-left: 46px;
     font-size: 14.5px;
     line-height: 1.9;
     color: var(--muted);
-    padding-left: 16px;
-    border-left: 2px solid var(--line);
   }
-  .policies strong {
-    display: block;
-    color: var(--fg);
-    font-weight: 700;
+  .policies .n {
+    position: absolute; left: 0; top: 2px;
+    font-size: 12px; font-weight: 700;
+    color: var(--accent-text);
+    width: 30px;
   }
-
-  /* --- 献辞 --- */
+  .policies strong { display: block; color: var(--heading); font-weight: 700; margin-bottom: 4px; }
   .dedication {
-    position: relative;
-    margin: 12px 0 0;
-    padding-top: 28px;
+    margin: 48px auto 0;
+    max-width: 22em;
     text-align: center;
-    font-size: 17px;
+    position: relative;
+    padding-top: 30px;
+    font-size: clamp(18px, 2.4vw, 22px);
     font-weight: 700;
-    line-height: 1.8;
+    color: var(--heading);
   }
   .dedication::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 36px;
-    height: 2px;
-    background: var(--accent);
+    content: ""; position: absolute; top: 0; left: 50%;
+    transform: translateX(-50%); width: 40px; height: 2px; background: var(--accent);
   }
 
-  /* --- 状態pill --- */
-  .pill {
-    display: inline-block;
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: .04em;
-    line-height: 1;
-    padding: 5px 8px;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    color: var(--muted-strong);
-    white-space: nowrap;
-  }
-  .pill-live {
-    color: var(--accent-text);
-    border-color: var(--accent);
-  }
-
-  /* --- カード --- */
-  .cards {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+  /* ============ Products ============ */
+  .cards { display: grid; gap: 22px; }
+  @media (min-width: 760px) { .cards { grid-template-columns: 1fr 1fr; gap: 26px; } }
   .card {
-    display: block;
+    display: flex; flex-direction: column;
     background: var(--card);
-    border-radius: 12px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
     overflow: hidden;
     text-decoration: none;
     color: inherit;
-    transition: transform .18s ease, box-shadow .18s ease;
+    box-shadow: var(--shadow);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
   }
-  .card-topbar {
-    display: block;
-    height: 4px;
-    background: var(--accent);
-    transition: height .18s ease;
-  }
-  .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .10);
-  }
-  .card:hover .card-topbar { height: 7px; }
-  .card-body {
-    display: block;
-    padding: 22px 22px 24px;
-  }
-  .card-meta {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .card-kind {
-    font-size: 10.5px;
-    letter-spacing: .08em;
-    font-weight: 700;
-    color: var(--muted-strong);
-  }
-  .card-title {
-    display: block;
-    font-size: 19px;
-    font-weight: 700;
-    line-height: 1.5;
-    color: var(--fg);
-  }
-  .card-desc {
-    display: block;
-    margin: 8px 0 12px;
-    font-size: 13.5px;
-    line-height: 1.75;
-    color: var(--muted);
-  }
+  .card:hover { transform: translateY(-4px); border-color: var(--line-strong); box-shadow: 0 2px 4px rgba(43,39,35,.06), 0 24px 48px rgba(43,39,35,.14); }
   .card-shot {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
+    display: block; width: 100%; height: auto;
+    aspect-ratio: 16 / 10; object-fit: cover;
     background: var(--card-links);
+    border-bottom: 1px solid var(--line);
   }
-  .card-facts {
-    display: block;
-    margin: 0 0 4px;
-    font-size: 12px;
-    line-height: 1.7;
-    color: var(--muted);
+  .card-body { padding: 24px 24px 26px; display: flex; flex-direction: column; height: 100%; }
+  .card-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .card-kind { font-size: 10.5px; letter-spacing: .08em; font-weight: 700; color: var(--muted-strong); text-transform: uppercase; }
+  .pill {
+    display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .04em;
+    line-height: 1; padding: 5px 9px; border-radius: 999px;
+    border: 1px solid var(--line-strong); color: var(--muted-strong); white-space: nowrap;
   }
-  .card-tech {
-    display: block;
-    margin: 0 0 16px;
-    font-size: 11.5px;
-    line-height: 1.7;
-    letter-spacing: .02em;
-    color: var(--muted-strong);
-  }
-  .cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--accent-text);
-    font-weight: 700;
-    font-size: 14px;
-  }
-  .card:hover .cta { text-decoration: underline; }
+  .pill-live { color: var(--accent-text); border-color: var(--accent); background: var(--accent-soft); }
+  .pill-soon { color: var(--muted-strong); }
+  .card-title { font-size: 21px; font-weight: 800; line-height: 1.4; color: var(--heading); }
+  .card-desc { margin: 8px 0 14px; font-size: 14px; line-height: 1.75; color: var(--muted); }
+  .card-facts { font-size: 12px; line-height: 1.7; color: var(--muted); margin-bottom: 4px; }
+  .card-tech { font-size: 11.5px; line-height: 1.7; letter-spacing: .02em; color: var(--muted-strong); margin-bottom: 18px; }
+  .cta { margin-top: auto; display: inline-flex; align-items: center; gap: 6px; color: var(--accent-text); font-weight: 700; font-size: 14px; }
+  .cta .arrow { transition: transform .16s ease; }
+  .card:hover .cta .arrow { transform: translateX(3px); }
 
-  /* --- ロードマップ --- */
+  /* ============ Roadmap ============ */
   .timeline {
-    list-style: none;
-    margin: 0;
-    padding: 0 0 0 26px;
-    border-left: 2px solid var(--line);
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+    list-style: none; margin: 0; padding: 0;
+    display: grid; gap: 24px;
   }
-  .phase { position: relative; }
-  .phase::before {
-    content: "";
-    position: absolute;
-    left: -33px;
-    top: 6px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--accent);
-  }
-  .phase-head {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .phase-no {
-    font-size: 10.5px;
-    letter-spacing: .08em;
-    font-weight: 700;
-    color: var(--muted-strong);
-  }
-  .phase-title {
-    margin: 8px 0 0;
-    font-size: 17px;
-    font-weight: 700;
-    line-height: 1.5;
-  }
-  .phase-desc {
-    margin: 4px 0 0;
-    font-size: 13.5px;
-    line-height: 1.75;
-    color: var(--muted);
-  }
-
-  /* --- Contact --- */
-  .links {
-    background: var(--card-links);
-    border-radius: 12px;
-    padding: 14px 18px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 22px;
-  }
-  .link-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    color: inherit;
-  }
-  .link-item:hover { opacity: .72; }
-  .badge {
-    width: 30px;
-    height: 30px;
-    border-radius: 6px;
+  @media (min-width: 760px) { .timeline { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+  .phase {
+    position: relative;
+    padding: 22px 20px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
     background: var(--card);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font: 700 12px ui-monospace, Menlo, monospace;
-    color: var(--fg);
-    flex: none;
   }
-  .link-label {
-    font-size: 12.5px;
-    color: var(--fg);
-    font-weight: 500;
-  }
+  .phase.current { border-color: var(--accent); }
+  .phase-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .phase-no { font-size: 10.5px; letter-spacing: .08em; font-weight: 700; color: var(--muted-strong); text-transform: uppercase; }
+  .phase-title { margin: 0; font-size: 17px; font-weight: 800; line-height: 1.4; color: var(--heading); }
+  .phase-desc { margin: 6px 0 0; font-size: 13.5px; line-height: 1.7; color: var(--muted); }
 
-  .footer {
-    font-size: 11.5px;
-    color: var(--footer);
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+  /* ============ Contact ============ */
+  .contact-grid { display: grid; gap: 28px; }
+  @media (min-width: 760px) { .contact-grid { grid-template-columns: 1.2fr 1fr; align-items: center; } }
+  .links { display: flex; flex-direction: column; gap: 10px; }
+  .link-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--card);
+    text-decoration: none; color: inherit;
+    transition: border-color .16s ease, transform .16s ease;
   }
-  .footer a {
-    color: var(--footer);
-    text-decoration: underline;
-    text-underline-offset: 2px;
+  .link-item:hover { border-color: var(--accent); transform: translateX(2px); }
+  .badge {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: var(--bg-tint); display: flex; align-items: center; justify-content: center;
+    font: 700 12px ui-monospace, Menlo, monospace; color: var(--fg); flex: none;
   }
+  .link-label { font-size: 14px; color: var(--fg); font-weight: 600; }
+  .link-sub { font-size: 12px; color: var(--muted-strong); }
+
+  /* ============ Footer ============ */
+  .footer { padding: 40px 0 64px; border-top: 1px solid var(--line); }
+  .footer-in { font-size: 12px; color: var(--muted-strong); display: flex; flex-direction: column; gap: 6px; }
+  .footer a { color: var(--muted-strong); text-decoration: underline; text-underline-offset: 2px; }
   .footer a:hover { color: var(--accent-text); }
 
-  /* --- 広い画面 --- */
-  @media (min-width: 760px) {
-    .page {
-      max-width: 760px;
-      padding: 112px 32px 80px;
-      gap: 96px;
-    }
-    .wordmark { font-size: 60px; }
-    .rule { width: 44px; margin: 20px 0; }
-    .lede { font-size: 17px; }
+  /* ============ Reveal ============ */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .hero-inner > * { animation: fadeInUp .6s ease both; }
+  .hero-eyebrow { animation-delay: .02s; }
+  .wordmark { animation-delay: .06s; }
+  .hero-lede { animation-delay: .14s; }
+  .hero-sub { animation-delay: .20s; }
+  .hero-cta { animation-delay: .28s; }
+  html.js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  html.js .reveal.is-visible { opacity: 1; transform: none; }
 
-    .section { gap: 28px; }
-    .eyebrow { font-size: 11.5px; }
-    .prose p { font-size: 16px; }
-    .policies li { font-size: 15px; padding-left: 20px; }
-    .dedication { font-size: 20px; padding-top: 32px; }
-
-    .cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .card-body { padding: 28px 26px 30px; }
-    .card-title { font-size: 21px; }
-    .card-desc { font-size: 14px; }
-
-    .links { padding: 16px 24px; gap: 32px; }
-    .badge { width: 34px; height: 34px; }
-    .link-label { font-size: 13.5px; }
-
-    .footer { font-size: 12.5px; }
-  }
-
-  /* --- モーション抑制 --- */
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: .001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: .001ms !important;
-      scroll-behavior: auto !important;
-    }
-    html.js .reveal {
-      opacity: 1;
-      transform: none;
-    }
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+    html.js .reveal { opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body>
-  <main class="page">
 
-    <header class="hero">
+  <!-- ============ Hero ============ -->
+  <header class="hero">
+    <div class="wrap hero-inner">
+      <p class="hero-eyebrow mono">非公式の学生ツール ・ 個人開発</p>
       <h1 class="wordmark">waiteu</h1>
-      <hr class="rule">
-      <p class="lede">東京理科大生。学生のためのツールを、個人でつくっています。</p>
-    </header>
+      <p class="hero-lede">欲しかったものを、自分でつくっています。</p>
+      <p class="hero-sub">東京理科大生向け。<br>LETUSとCLASSにたどり着くまでを短く。</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#products">製品を見る<span class="arrow" aria-hidden="true">↓</span></a>
+        <a class="btn btn-ghost" href="https://litus.waiteu.dev/">リタスの事前登録<span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </header>
 
+  <main>
+    <!-- ============ ABOUT ============ -->
     <section class="section reveal" aria-labelledby="about-heading">
-      <h2 class="eyebrow" id="about-heading">ABOUT</h2>
-
-      <div class="prose">
-        <p>東京理科大の学生に向けて、LETUSとCLASSを使いやすくするツールをつくっています。必要な情報が2つのシステムに分かれて置かれていて、締切を追うだけで手間がかかります。使いづらいものを、気合いで使い続けるしかないのは、おかしなことです。</p>
-        <p>だから自分で作ることにしました。まずブラウザ拡張を、次にスマートフォンアプリを。</p>
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-no mono">01</span>
+          <h2 class="sec-title" id="about-heading">About</h2>
+          <span class="line"></span>
+        </div>
+        <div class="prose">
+          <p class="lead">もっと使いやすく、もっと分かりやすく。</p>
+          <p>毎日使うものほど、なぜか使いにくい。慣れればいい、で済ませたくない。</p>
+          <p>だから自分で作ることにしました。まずブラウザ拡張を、次にスマホアプリを。</p>
+        </div>
       </div>
     </section>
 
+    <!-- ============ POLICY ============ -->
     <section class="section reveal" aria-labelledby="policy-heading">
-      <h2 class="eyebrow" id="policy-heading">POLICY</h2>
-
-      <ul class="policies">
-        <li><strong>大学の情報に届く機能は、無料のままにします。</strong>課題の締切や時間割にたどり着くための機能で、お金を取ることはしません。安全に、止めずに提供し続けるにはお金がかかるので、その負担が無視できなくなったときは、自分がつくった快適さの部分だけ有料でお願いすることがあります。長くまとめて前払いさせることはせず、返金にも応じます。黙って始めることはしません。</li>
-        <li><strong>パスワードを読み取りません。</strong>ログイン情報に触れない設計にしています。</li>
-        <li><strong>必要のないデータを持ちません。</strong>動作に不要な情報は集めず、集めたものを外部に渡すこともありません。広告は載せず、行動の追跡もしません。</li>
-        <li><strong>動かし続けることを優先します。</strong>機能を足すより、壊れないことを選びます。学期の途中で止まらないことが、いちばんの機能だと思っています。</li>
-        <li><strong>公式のサービスを置き換えません。</strong>LETUSとCLASSは、これからも大学の正式な窓口です。ここでつくるものは、そこへ辿り着くまでを短くするだけの道具です。</li>
-        <li><strong>何をしているか、説明できる状態にします。</strong>変更履歴を公開し、権限や取得するデータの範囲を明示します。</li>
-      </ul>
-
-      <p class="dedication">日々を生き抜く、すべての理科大生へ。</p>
-    </section>
-
-    <section class="section reveal" aria-labelledby="products-heading">
-      <h2 class="eyebrow" id="products-heading">PRODUCTS</h2>
-
-      <div class="cards">
-        <a class="card" href="https://litus.waiteu.dev/">
-          <span class="card-topbar" aria-hidden="true"></span>
-          <img class="card-shot" src="/shots/litus.png?v=2" width="680" height="425" loading="lazy" decoding="async" alt="リタスの課題一覧。締切ごとに色分けして、提出状況をまとめて表示">
-          <span class="card-body">
-            <span class="card-meta">
-              <span class="card-kind">モバイルアプリ</span>
-              <span class="pill pill-soon">事前登録受付中</span>
-            </span>
-            <span class="card-title">リタス（Litus）</span>
-            <span class="card-desc">LETUSもCLASSも、スマホひとつに。時間割・出席・課題をまとめる。</span>
-            <span class="card-facts">2026年後期 公開予定 ・ ベータ配布中</span>
-            <span class="card-tech">React Native / Expo / TypeScript</span>
-            <span class="cta">事前登録ページへ<span aria-hidden="true">→</span></span>
-          </span>
-        </a>
-
-        <a class="card" href="https://lms.waiteu.dev/">
-          <span class="card-topbar" aria-hidden="true"></span>
-          <img class="card-shot" src="/shots/ltw.png" width="680" height="425" loading="lazy" decoding="async" alt="LETUS Task Watcher が取り込んだCLASSの時間割の画面">
-          <span class="card-body">
-            <span class="card-meta">
-              <span class="card-kind">Chrome / Edge拡張</span>
-              <span class="pill pill-live">公開中</span>
-            </span>
-            <span class="card-title">LETUS Task Watcher</span>
-            <span class="card-desc">LETUSの課題期限を自動で集めて、締切前に通知する。CLASSの時間割にも対応。</span>
-            <span class="card-facts">Chrome ウェブストアで公開中 v1.3.0 ・ 利用者 約74人（2026年7月時点）</span>
-            <span class="card-tech">React / TypeScript / Manifest V3</span>
-            <span class="cta">紹介ページへ<span aria-hidden="true">→</span></span>
-          </span>
-        </a>
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-no mono">02</span>
+          <h2 class="sec-title" id="policy-heading">Policy</h2>
+          <span class="line"></span>
+        </div>
+        <ul class="policies">
+          <li><span class="n mono">01</span><strong>大学の情報に届く機能は無料のままにします。</strong>課題の締切や時間割にたどり着く機能で、お金を取ることはしません。有料でお願いするのは自分がつくった快適さの部分だけです。負担が無視できなくなったときに限ります。長期の前払いはなく、返金にも応じます。黙って始めることはしません。</li>
+          <li><span class="n mono">02</span><strong>パスワードを読み取りません。</strong>ログイン情報に触れない設計にしています。</li>
+          <li><span class="n mono">03</span><strong>必要のないデータを持ちません。</strong>持っているデータを外部に渡すこともありません。広告は載せません。行動の追跡もしません。</li>
+          <li><span class="n mono">04</span><strong>動かし続けることを優先します。</strong>機能を足すより壊れないことを選びます。学期の途中で止まらないことがいちばんの機能だと思っています。</li>
+          <li><span class="n mono">05</span><strong>公式のサービスを置き換えません。</strong>LETUSとCLASSはこれからも大学の正式な窓口です。ここでつくるのはそこへ辿り着くまでを短くする道具だけです。</li>
+          <li><span class="n mono">06</span><strong>何をしているか説明できる状態にします。</strong>変更履歴を公開し、権限や取得するデータの範囲を明示します。</li>
+        </ul>
+        <p class="dedication">日々を生き抜く、すべての理科大生へ。</p>
       </div>
     </section>
 
+    <!-- ============ PRODUCTS ============ -->
+    <section class="section reveal" id="products" aria-labelledby="products-heading">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-no mono">03</span>
+          <h2 class="sec-title" id="products-heading">Products</h2>
+          <span class="line"></span>
+        </div>
+        <div class="cards">
+          <a class="card" href="https://litus.waiteu.dev/">
+            <img class="card-shot" src="/shots/litus.png?v=2" width="680" height="425" loading="lazy" decoding="async" alt="リタスの課題一覧。締切ごとに色分けして、提出状況をまとめて表示">
+            <span class="card-body">
+              <span class="card-meta">
+                <span class="card-kind">モバイルアプリ</span>
+                <span class="pill pill-soon">事前登録受付中</span>
+              </span>
+              <span class="card-title">リタス（Litus）</span>
+              <span class="card-desc">時間割・出席・課題をスマホひとつにまとめる。</span>
+              <span class="card-facts">2026年後期 公開予定 ・ ベータ配布中</span>
+              <span class="card-tech mono">React Native / Expo / TypeScript</span>
+              <span class="cta">事前登録ページへ<span class="arrow" aria-hidden="true">→</span></span>
+            </span>
+          </a>
+
+          <a class="card" href="https://lms.waiteu.dev/">
+            <img class="card-shot" src="/shots/ltw.png" width="680" height="425" loading="lazy" decoding="async" alt="LETUS Task Watcher が取り込んだCLASSの時間割の画面">
+            <span class="card-body">
+              <span class="card-meta">
+                <span class="card-kind">Chrome / Edge拡張</span>
+                <span class="pill pill-live">公開中</span>
+              </span>
+              <span class="card-title">LETUS Task Watcher</span>
+              <span class="card-desc">LETUSの課題期限を自動で集めて締切前に通知します。CLASSの時間割にも対応。</span>
+              <span class="card-facts">Chrome ウェブストアで公開中 v1.3.0 ・ 利用者 約74人（2026年7月時点）</span>
+              <span class="card-tech mono">React / TypeScript / Manifest V3</span>
+              <span class="cta">紹介ページへ<span class="arrow" aria-hidden="true">→</span></span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ROADMAP ============ -->
     <section class="section reveal" aria-labelledby="roadmap-heading">
-      <h2 class="eyebrow" id="roadmap-heading">ROADMAP</h2>
-
-      <ol class="timeline">
-        <li class="phase">
-          <div class="phase-head">
-            <span class="phase-no">フェーズ1</span>
-            <span class="pill pill-live">公開中</span>
-          </div>
-          <h3 class="phase-title">LETUS Task Watcher</h3>
-          <p class="phase-desc">課題の自動収集と締切通知</p>
-        </li>
-        <li class="phase">
-          <div class="phase-head">
-            <span class="phase-no">フェーズ2</span>
-            <span class="pill pill-live">公開中</span>
-          </div>
-          <h3 class="phase-title">CLASS連携</h3>
-          <p class="phase-desc">時間割を、課題と同じ場所に</p>
-        </li>
-        <li class="phase">
-          <div class="phase-head">
-            <span class="phase-no">フェーズ3</span>
-            <span class="pill pill-wip">開発中</span>
-          </div>
-          <h3 class="phase-title">リタス</h3>
-          <p class="phase-desc">すべてをスマートフォンへ</p>
-        </li>
-      </ol>
-    </section>
-
-    <section class="section reveal" aria-labelledby="contact-heading">
-      <h2 class="eyebrow" id="contact-heading">CONTACT</h2>
-
-      <div class="prose">
-        <p>うまくいかないことがあれば、教えてください。使っている人の困りごとが、いちばん確かな手がかりです。</p>
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-no mono">04</span>
+          <h2 class="sec-title" id="roadmap-heading">Roadmap</h2>
+          <span class="line"></span>
+        </div>
+        <ol class="timeline">
+          <li class="phase">
+            <div class="phase-head">
+              <span class="phase-no">フェーズ1</span>
+              <span class="pill pill-live">公開中</span>
+            </div>
+            <h3 class="phase-title">LETUS Task Watcher</h3>
+            <p class="phase-desc">課題の自動収集と締切通知</p>
+          </li>
+          <li class="phase">
+            <div class="phase-head">
+              <span class="phase-no">フェーズ2</span>
+              <span class="pill pill-live">公開中</span>
+            </div>
+            <h3 class="phase-title">CLASS連携</h3>
+            <p class="phase-desc">時間割を、課題と同じ場所に</p>
+          </li>
+          <li class="phase current">
+            <div class="phase-head">
+              <span class="phase-no">フェーズ3</span>
+              <span class="pill pill-live">開発中</span>
+            </div>
+            <h3 class="phase-title">リタス</h3>
+            <p class="phase-desc">すべてをスマートフォンへ</p>
+          </li>
+        </ol>
       </div>
-
-      <nav class="links" aria-label="外部リンク">
-        <a class="link-item" href="https://github.com/waiteu-git" target="_blank" rel="noopener">
-          <span class="badge">GH</span>
-          <span class="link-label">GitHub</span>
-        </a>
-        <a class="link-item" href="https://x.com/waiteu_dev" target="_blank" rel="noopener">
-          <span class="badge">X</span>
-          <span class="link-label">X</span>
-        </a>
-        <a class="link-item" href="mailto:contact@waiteu.dev">
-          <span class="badge">@</span>
-          <span class="link-label">メール</span>
-        </a>
-      </nav>
     </section>
 
-    <footer class="footer">
+    <!-- ============ CONTACT ============ -->
+    <section class="section reveal" aria-labelledby="contact-heading">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-no mono">05</span>
+          <h2 class="sec-title" id="contact-heading">Contact</h2>
+          <span class="line"></span>
+        </div>
+        <div class="contact-grid">
+          <div class="prose">
+            <p class="lead">うまくいかないことがあれば教えてください。</p>
+            <p>あなたの困りごとがいちばん確かな手がかりです。</p>
+          </div>
+          <nav class="links" aria-label="外部リンク">
+            <a class="link-item" href="https://github.com/waiteu-git" target="_blank" rel="noopener">
+              <span class="badge">GH</span>
+              <span><span class="link-label">GitHub</span><br><span class="link-sub">github.com/waiteu-git</span></span>
+            </a>
+            <a class="link-item" href="https://x.com/waiteu_dev" target="_blank" rel="noopener">
+              <span class="badge">X</span>
+              <span><span class="link-label">X</span><br><span class="link-sub">@waiteu_dev</span></span>
+            </a>
+            <a class="link-item" href="mailto:contact@waiteu.dev">
+              <span class="badge">@</span>
+              <span><span class="link-label">メール</span><br><span class="link-sub">contact@waiteu.dev</span></span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ Footer ============ -->
+  <footer class="footer">
+    <div class="wrap footer-in">
       <span>© waiteu ・ 東京理科大学非公式の学生個人プロジェクトです。大学およびLETUS・CLASSの運営とは関係ありません。</span>
       <span>提供：waiteu（個人事業主） ・ <a href="/company">事業者情報</a></span>
-    </footer>
-
-  </main>
+    </div>
+  </footer>
 
   <script>
     (function () {
       var root = document.documentElement;
       if (!('IntersectionObserver' in window)) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
       root.classList.add('js');
-
       var notified = false;
       var observer = new IntersectionObserver(function (entries) {
         notified = true;
@@ -576,20 +524,10 @@
           observer.unobserve(entry.target);
         });
       }, { rootMargin: '0px 0px -10% 0px' });
-
-      document.querySelectorAll('.reveal').forEach(function (el) {
-        observer.observe(el);
-      });
-
-      // IntersectionObserverが在っても一度も発火しない環境がある（一部のWebView・
-      // オフスクリーン描画など）。隠しているのはJSなので、そこで黙ると本文が永久に
-      // 消える。初回通知が来なければ隠すのをやめる。仕様上、動く環境では観測開始
-      // 直後に必ず通知が来るので notified が立ち、この保険は何もしない。
+      document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
       setTimeout(function () {
         if (notified) return;
-        document.querySelectorAll('.reveal').forEach(function (el) {
-          el.classList.add('is-visible');
-        });
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
       }, 2000);
     })();
   </script>

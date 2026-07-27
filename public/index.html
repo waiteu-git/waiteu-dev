@@ -264,6 +264,8 @@
   }
   .pill-live { color: var(--accent-text); border-color: var(--accent); background: var(--accent-soft); }
   .pill-soon { color: var(--muted-strong); }
+  /* 開発中: 公開中(pill-live)と同じ強調にしないための控えめな状態表示 */
+  .pill-wip { color: var(--muted-strong); border-style: dashed; }
   .card-title { font-size: 21px; font-weight: 800; line-height: 1.4; color: var(--heading); }
   .card-desc { margin: 8px 0 14px; font-size: 14px; line-height: 1.75; color: var(--muted); }
   .card-facts { font-size: 12px; line-height: 1.7; color: var(--muted); margin-bottom: 4px; }
@@ -290,6 +292,8 @@
   .phase-no { font-size: 10.5px; letter-spacing: .08em; font-weight: 700; color: var(--muted-strong); text-transform: uppercase; }
   .phase-title { margin: 0; font-size: 17px; font-weight: 800; line-height: 1.4; color: var(--heading); }
   .phase-desc { margin: 6px 0 0; font-size: 13.5px; line-height: 1.7; color: var(--muted); }
+  /* 事実（進捗・時期）は説明より一段落として、PRODUCTSの .card-facts と同じ12px に揃える */
+  .phase-facts { margin: 10px 0 0; font-size: 12px; line-height: 1.7; color: var(--muted-strong); }
 
   /* ============ Contact ============ */
   .contact-grid { display: grid; gap: 28px; }
@@ -460,10 +464,11 @@
           <li class="phase current">
             <div class="phase-head">
               <span class="phase-no">フェーズ3</span>
-              <span class="pill pill-live">開発中</span>
+              <span class="pill pill-wip">開発中</span>
             </div>
             <h3 class="phase-title">リタス</h3>
             <p class="phase-desc">すべてをスマートフォンへ</p>
+            <p class="phase-facts">ベータ配布中 ・ 2026年後期 公開予定</p>
           </li>
         </ol>
       </div>

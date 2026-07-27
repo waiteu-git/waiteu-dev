@@ -48,11 +48,19 @@ from PIL import Image
 # --- 環境パス（Mac） ---
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 SCREENS = "/Users/waiteu/dev/litus-design/previews/screens"
-LTW_SRC = "/Users/waiteu/dev/lms-task-watcher-develop/store-assets/store-shot1.png"
+# shot3 = 「左に見出し＋右にポップアップ1枚」。litus.png と左右の構造が揃い、
+# 数字・バッジが大きいので 680x425 まで縮めても読める。
+# （shot1 は時間割グリッド 5列×3行＝縮小すると科目名が潰れるため不採用）
+LTW_SRC = "/Users/waiteu/dev/lms-task-watcher-develop/store-assets/store-shot3.png"
 OUT = "/Users/waiteu/dev/waiteu-dev/public/shots"
 TMP = "/Users/waiteu/dev/waiteu-dev/.tmp-shots"
 
 OUT_SIZE = (680, 425)   # 16:10 = カード表示幅の2倍
+
+# home.html を 520x940 で撮ったときの端末フレームの位置（2倍解像度の実測値）。
+# 影のにじみを含めず枠ぴったりに切る。プレビュー側の .phone を変えたら測り直す。
+PHONE_BOX = (127, 125, 911, 1817)
+PHONE_RADIUS_CSS = 20   # --radius-sheet。拡大率に応じて合成側でスケールする
 
 os.makedirs(OUT, exist_ok=True)
 os.makedirs(TMP, exist_ok=True)
@@ -75,12 +83,21 @@ def shoot(src_path, dst, w, h, extra=None):
     return Image.open(dst)
 
 
-def shoot_screen(name, w, h, hide=None):
-    """プレビュー画面HTMLを撮る。hide のセレクタは撮影時のみ非表示にする。"""
+def shoot_screen(name, w, h, hide=None, css=None):
+    """プレビュー画面HTMLを撮る。
+
+    hide のセレクタは撮影時のみ非表示にする。css は撮影時だけ差し込む追加CSS
+    （トークンの上書きなど）。どちらも litus-design 側の元HTMLは編集しない。
+    """
     src_path = os.path.join(SCREENS, name + ".html")
-    if hide:
+    if hide or css:
         html = open(src_path, encoding="utf-8").read()
-        style = "<style>" + ",".join(hide) + "{display:none!important}</style>\n</head>"
+        style = "<style>"
+        if hide:
+            style += ",".join(hide) + "{display:none!important}"
+        if css:
+            style += css
+        style += "</style>\n</head>"
         assert "</head>" in html
         html = html.replace("</head>", style, 1)
         src_path = os.path.join(TMP, name + ".shot.html")
@@ -88,15 +105,37 @@ def shoot_screen(name, w, h, hide=None):
     return shoot(src_path, os.path.join(TMP, name + ".png"), w, h).convert("RGB")
 
 
-def build_litus():
-    # 課題(assignments)画面を撮り、白基調のリスト部分で切り出す。
-    #   幅540 = 右上「最終同期」ラベルが欠けない最小幅。
-    #   高さ1240 = 下部デバッグ操作行(position:fixed)を内容より十分下へ逃がす。
-    #   crop(0,0,1080,1900) = 緑ヘッダー帯〜リスト末尾（debug 行は入らない）。
-    scr = shoot_screen("assignments", 540, 1240, hide=[".theme-toggle"])
-    phone = scr.crop((0, 0, 1080, 1900))
+def build_litus(screen=None, out_name="litus.png"):
+    # どの画面を載せるかは LITUS_SCREEN で差し替えられる（既定は下の SCREEN）。
+    #   home     … .phone(390x844・角丸・影)で端末枠まで描かれる唯一の画面。
+    #               緑グラデの「看板」意匠なので画面全体が緑になる。
+    #   それ以外 … 白基調（緑ヘッダー帯＋白い本文）。端末枠は無いので
+    #               合成側の角丸＋影を枠として使う。
+    screen = screen or os.environ.get("LITUS_SCREEN", "home")
+    if screen == "home":
+        # home は看板グラデ（緑）が画面全体に敷かれる意匠。白基調で見せたいので
+        # 撮影時だけ地を白に、ガラス面を「白地でも沈まない淡いカード」に置き換える。
+        # ※実アプリのホームはライト/ダークとも緑。これは掲載素材用の見せ方。
+        white = (
+            ":root{--grad-top:#ffffff;--grad-bottom:#f2f7f5;"
+            "--glass-bg:rgba(16,110,84,.055);"
+            "--glass-border:rgba(16,110,84,.14);}"
+        )
+        scr = shoot_screen(screen, 520, 940, hide=[".theme-toggle"], css=white)
+        phone = scr.crop(PHONE_BOX)
+    else:
+        # 幅540 = 右上のラベルが欠けない最小幅。
+        # 高さ1240 = 下部のデバッグ操作行(position:fixed)を内容より下へ逃がす。
+        scr = shoot_screen(screen, 540, 1240, hide=[".theme-toggle"])
+        phone = scr.crop((0, 0, 1080, 1900))
     phone_path = os.path.join(TMP, "phone.png")
     phone.save(phone_path)
+
+    # 合成キャンバス上での端末の表示幅。素の 392px から拡大するほど文字が読める。
+    # 角丸は元の --radius-sheet を同じ倍率で拡大しないと枠の形が崩れる。
+    PHONE_W = 540
+    src_w_css = (PHONE_BOX[2] - PHONE_BOX[0]) / 2
+    PHONE_R = round(PHONE_RADIUS_CSS * PHONE_W / src_w_css)
 
     composer = f"""<!doctype html><html lang="ja"><head><meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -112,7 +151,7 @@ def build_litus():
       linear-gradient(158deg, #ffffff 0%, #f5faf7 58%, #e9f5ef 100%);
   }}
   .wrap {{ display:flex; width:100%; height:100%; align-items:center; }}
-  .left {{ width:53%; padding:0 40px 0 78px; }}
+  .left {{ width:53%; padding:0 28px 0 74px; }}
   .eyebrow {{ display:flex; align-items:center; gap:11px; margin-bottom:26px; }}
   .dot {{ width:11px; height:11px; border-radius:50%; background:#12946e;
           box-shadow:0 0 0 5px rgba(18,148,110,.14); }}
@@ -125,9 +164,12 @@ def build_litus():
            border:1.5px solid rgba(18,148,110,.28); border-radius:999px;
            background:rgba(255,255,255,.6); }}
   .right {{ width:47%; height:100%; position:relative; }}
-  .phone {{ position:absolute; top:88px; left:86px; width:392px;
-            border-radius:42px; overflow:hidden;
-            box-shadow:0 34px 70px rgba(14,80,60,.22), 0 4px 14px rgba(14,80,60,.10);
+  /* 端末を大きく置き、下端をカンバスの外へ逃がす（bleed）。
+     16:10 の横長枠に縦長の端末を「全部」入れると必ず小さくなるので、
+     上部だけを大きく見せて可読性を取る。 */
+  .phone {{ position:absolute; top:58px; left:-4px; width:{PHONE_W}px;
+            border-radius:{PHONE_R}px; overflow:hidden;
+            box-shadow:0 40px 80px rgba(14,80,60,.24), 0 6px 18px rgba(14,80,60,.12);
             outline:1px solid rgba(0,0,0,.04); }}
   .phone img {{ display:block; width:100%; }}
 </style></head><body>
@@ -154,7 +196,7 @@ def build_litus():
     comp = shoot(composer_path, os.path.join(TMP, "composer.png"),
                  1200, 750, extra=["--virtual-time-budget=4000"]).convert("RGB")
     comp.resize(OUT_SIZE, Image.LANCZOS).save(
-        os.path.join(OUT, "litus.png"), optimize=True)
+        os.path.join(OUT, out_name), optimize=True)
 
 
 def build_ltw():

@@ -46,7 +46,10 @@ def is_plain_int(x):
     return isinstance(x, int) and not isinstance(x, bool)
 
 
-def check_disabled_array(value, path, allowed, errors):
+def check_disabled_array(value, path, errors, allowed=None):
+    """allowed=None は「既知の値かどうかは判定しない」モード（litus正典が読めない時の
+    劣化動作）。配列であること・要素が文字列であることは allowed の有無によらず常に見る
+    ＝キルスイッチの構造チェックが外部リポの有無に依存しないようにするため。"""
     if not isinstance(value, list):
         errors.append(
             f"{path}: 配列ではありません（型={type(value).__name__}）。"
@@ -54,7 +57,9 @@ def check_disabled_array(value, path, allowed, errors):
         )
         return
     for v in value:
-        if v not in allowed:
+        if not isinstance(v, str):
+            errors.append(f"{path}: 要素が文字列ではありません（{v!r}, 型={type(v).__name__}）")
+        elif allowed is not None and v not in allowed:
             errors.append(
                 f"{path}: 未知の値 {v!r}（使えるのは {sorted(allowed)}）。"
                 "未知の値は安全側に倒れて『無視されるだけ』＝止めたいのに何も止まりません"
@@ -84,7 +89,7 @@ def validate(raw, allowed_disabled_values):
     if "disabled" not in data:
         errors.append("disabled がありません（トップレベル必須）")
     else:
-        check_disabled_array(data["disabled"], "disabled", allowed_disabled_values, errors)
+        check_disabled_array(data["disabled"], "disabled", errors, allowed=allowed_disabled_values)
 
     check_text_field(data, "message", errors)
     check_text_field(data, "title", errors)
@@ -102,7 +107,7 @@ def validate(raw, allowed_disabled_values):
                 if "disabled" not in rule:
                     errors.append(f"{p}.disabled がありません")
                 else:
-                    check_disabled_array(rule["disabled"], f"{p}.disabled", allowed_disabled_values, errors)
+                    check_disabled_array(rule["disabled"], f"{p}.disabled", errors, allowed=allowed_disabled_values)
                 for bkey in ("minBuild", "maxBuild"):
                     if bkey in rule and not is_plain_int(rule[bkey]):
                         errors.append(f"{p}.{bkey} が整数ではありません（型={type(rule[bkey]).__name__}）")
@@ -123,14 +128,19 @@ def main():
         source_label = "(stdin)"
         raw = sys.stdin.read()
 
+    # litus正典が読めない場合は「既知の値かどうか」だけ判定を諦め、それ以外
+    # （JSON妥当性・disabledが配列か・型など）は通常どおり検証する。
+    #
+    # ここを丸ごとブロックにしない理由: status.json はキルスイッチ＝緊急停止機構であり、
+    # 「別マシン／litusリポ未クローンの環境から緊急停止を打ちたい」は起こりうる正当な
+    # 状況（大学要請などは機材を選ばない）。この1点だけは他のガード（H7等）と違って
+    # 「判定不能を安全側でブロック」が逆に効く＝壊れたstatus.jsonも配信できないstatus.json
+    # も結果は同じ「止まらない」なので、構造さえ正しければ通す方が安全側になる。
+    # python3が無い／このスクリプト自体が無い場合は別レイヤ（pre-commit側）が
+    # 引き続きブロックする＝そちらは本当に何も検証できないケースなので変えていない。
     known_features, feat_err = load_known_features()
-    if feat_err:
-        # 正典を参照できない = このチェックの目的（disabledの値を検証すること）を
-        # 果たせない。判定不能として通すのではなく、安全側でブロックする。
-        print(f"✗ 検証を実行できません: {feat_err}", file=sys.stderr)
-        sys.exit(1)
+    allowed = (known_features | {ALL_SENTINEL}) if known_features is not None else None
 
-    allowed = known_features | {ALL_SENTINEL}
     errors = validate(raw, allowed)
 
     if errors:
@@ -138,6 +148,15 @@ def main():
         for e in errors:
             print(f"  - {e}", file=sys.stderr)
         sys.exit(1)
+
+    if feat_err:
+        print(
+            f"⚠ {source_label}: 構造は正常ですが一部チェックを省略しました\n"
+            f"  - {feat_err}\n"
+            "  disabledの値がKillSwitchFeatureの既知の値か（誤字の検知）は確認していません。"
+            "配列である等の構造チェックは実行済みです。",
+            file=sys.stderr,
+        )
 
     sys.exit(0)
 

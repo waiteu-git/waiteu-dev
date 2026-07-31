@@ -1,0 +1,36 @@
+name: Validate status.json (kill switch)
+
+# ⚠設計上の意図＝このワークフローはブロックしない。ブランチ保護のrequired checkにも
+# 加えないこと。status.jsonはリタスの緊急停止機構そのもので、push発生源（CLI／GitHub
+# Web UI／モバイルアプリ等）を問わずここに到達する。特にWeb UI経由の編集（PCが無い
+# 緊急時の唯一の手段＝docs/KILL-SWITCH-RUNBOOK.md 手順D、公開されないローカル文書）は
+# ローカルのpre-commitフック（H9・waiteu-tools/hooks/README.md）を一切通らないため、
+# 機械チェックがゼロになる。しかしその経路こそ最速の発動手段であり、止めてはならない。
+#
+# よってここでの役割は「壊れた保存を防ぐ」ではなく「壊れた保存に数十秒〜1分で気づける
+# ようにする」こと。deploy.ymlとは独立に動かし、失敗してもdeployには一切影響しない。
+# 将来ここを必須チェックにしないこと＝守る対象が緊急機構そのものの場合、
+# 「判定不能／誤りを安全側でブロックする」の境界条件は反転する
+# （2026-07-29〜30の一連の経緯。waiteu-tools/hooks/README.md の H9 節を参照）。
+#
+# CI環境には litus リポ（private）が無いため、disabled の値が既知の feature 名かという
+# チェックはここでは実行されない（tools/validate-status-json.py が自動的に警告付きで
+# スキップする＝ローカルでlitusを参照できる時と同じ挙動）。private repoへの読み取り
+# トークンをこの公開リポのsecretsに追加する方がリスクが大きいと判断し、意図的に
+# JSON構造チェック（壊れたJSON／disabledが配列でない等）だけに絞っている。
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - public/litus/status.json
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: validate status.json structure
+        run: python3 tools/validate-status-json.py public/litus/status.json

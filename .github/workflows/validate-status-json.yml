@@ -34,6 +34,4 @@ jobs:
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - name: validate status.json structure
-        # TEMP(通知配信テスト用・確認後に元へ戻す): tools/_ci-notify-test.json を検証対象にしている。
-        # 本番 public/litus/status.json には一切触れていない。
-        run: python3 tools/validate-status-json.py tools/_ci-notify-test.json
+        run: python3 tools/validate-status-json.py public/litus/status.json

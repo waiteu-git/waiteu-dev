@@ -1,5 +1,19 @@
 {
   "schemaVersion": 1,
   "disabled": [],
-  "message": ""
+  "message": "",
+  "calendar": {
+    "terms": [
+      {
+        "id": "2026-spring",
+        "start": "2026-04-13",
+        "end": "2026-08-06"
+      },
+      {
+        "id": "2026-fall",
+        "start": "2026-09-11",
+        "end": "2027-01-25"
+      }
+    ]
+  }
 }

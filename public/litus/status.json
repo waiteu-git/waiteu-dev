@@ -2,9 +2,6 @@
   "schemaVersion": 1,
   "disabled": [],
   "message": "",
-  "versionRules": [
-    { "disabled": ["bulletin"], "minBuild": 219, "maxBuild": 219 }
-  ],
   "calendar": {
     "terms": [
       {

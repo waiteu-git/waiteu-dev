@@ -51,16 +51,36 @@
   .what{margin:10px 0 0;color:var(--sub);font-size:15.5px}
   .shot{display:block;margin:24px 0;background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .shot img{display:block;width:100%;height:auto;max-width:1040px;margin:0 auto}
+  .shot{position:relative}
   .shot summary{list-style:none;cursor:pointer;display:block}
   .shot summary::-webkit-details-marker{display:none}
   .shot summary:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
   .shot .hint{display:block;max-width:1040px;margin:0 auto;padding:8px 20px;font-size:13px;font-weight:700;color:var(--acc)}
   .shot[open] .hint{display:none}
-  .facts{margin:0;padding:16px 0 4px;display:grid;gap:10px}
-  .facts div{display:grid;gap:0}
-  .facts dt{font-size:12.5px;font-weight:700;letter-spacing:.08em;color:var(--sub)}
+  .shot img{transition:filter .2s}
+  .shot[open] img{min-height:320px;object-fit:cover;object-position:left top;filter:brightness(.2) saturate(.6) blur(3px)}
+  .shot .over{position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;display:flex;flex-direction:column;justify-content:center;pointer-events:none;color:#f4efe8}
+  .shot:not([open]) .over{display:none}
+  .facts{margin:0;padding:0;display:grid;gap:8px}
+  .facts div{display:grid;grid-template-columns:6.8em 1fr;gap:0 10px;align-items:baseline}
+  .facts dt{font-size:12.5px;font-weight:700;letter-spacing:.06em;color:rgba(244,239,232,.72)}
   .facts dd{margin:0;font-size:15px}
-  .shot .links{padding:12px 0 16px}
+  .shot .links{padding:14px 0 0}
+  .shot .links a{pointer-events:auto;color:#ffc9ad;border-bottom-color:#ffc9ad}
+  .shot .close{margin:10px 0 0;font-size:12.5px;color:rgba(244,239,232,.6)}
+  /* 開発中の一覧: クリックで詳細 */
+  .dev-list details>summary{list-style:none;cursor:pointer;display:grid;gap:2px}
+  .dev-list details>summary::-webkit-details-marker{display:none}
+  .dev-list details>summary:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+  .dev-list .more{font-size:12.5px;font-weight:700;color:var(--acc);margin-top:4px}
+  .dev-list details[open] .more{display:none}
+  .stages{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px;font-size:12px}
+  .stages li{padding:1px 9px;border:1px solid var(--line);border-radius:999px;color:var(--sub)}
+  .stages li.done{background:var(--chip)}
+  .stages li.now{border-color:var(--acc);color:var(--acc);font-weight:700}
+  .dev-list .facts{margin:12px 0 4px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+  .dev-list .facts dt{color:var(--sub)}
+  .dev-list .facts dd{font-size:14.5px}
   .links{display:flex;flex-wrap:wrap;gap:8px 20px;margin:0;font-size:16px;font-weight:700}
   .links a{text-decoration:none;border-bottom:2px solid var(--acc-raw);padding-bottom:1px}
 
@@ -84,8 +104,8 @@
   .tabset .group{padding-left:0;padding-right:0}
   h3{margin:0 0 16px;font-size:13px;letter-spacing:.14em;color:var(--sub);font-weight:700}
   .dev-list{list-style:none;margin:0;padding:0}
-  .dev-list li{padding:12px 0;border-top:1px dashed var(--line);display:grid;gap:2px}
-  .dev-list li:first-child{border-top:0}
+  .dev-list>li{padding:12px 0;border-top:1px dashed var(--line);display:grid;gap:2px}
+  .dev-list>li:first-child{border-top:0}
   .dev-list b{font-size:16px}
   .dev-list .st{margin-left:6px;border-color:var(--sub);color:var(--sub)}
   .dev-list span.d{color:var(--sub);font-size:14.5px;line-height:1.65}
@@ -150,7 +170,7 @@
     </div>
     <details class="shot">
       <summary><img src="/shots/litus.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="リタスのホーム画面。いまの授業と残り時間、出席の受付状況、届いた掲示をまとめて表示"><span class="hint">画像をクリックで詳しく見る</span></summary>
-      <div class="work-head"><dl class="facts"><div><dt>紹介</dt><dd>複数の学内システムをまとめて学生が使いやすい形にするアプリ</dd></div><div><dt>開発期間</dt><dd>2026年7月〜</dd></div><div><dt>利用者数</dt><dd>52人（2026年10月11日時点）</dd></div><div><dt>プラットフォーム</dt><dd>iOS / Android</dd></div><div><dt>使用技術</dt><dd>React Native（Expo）、TypeScript</dd></div></dl><p class="links"><a href="https://litus.waiteu.dev/">紹介ページ →</a></p></div>
+      <div class="work-head over"><dl class="facts"><div><dt>紹介</dt><dd>複数の学内システムをまとめて学生が使いやすい形にするアプリ</dd></div><div><dt>開発期間</dt><dd>2026年7月〜</dd></div><div><dt>利用者数</dt><dd>52人（2026年10月11日時点）</dd></div><div><dt>プラットフォーム</dt><dd>iOS / Android</dd></div><div><dt>使用技術</dt><dd>React Native（Expo）、TypeScript</dd></div></dl><p class="links"><a href="https://litus.waiteu.dev/">紹介ページ →</a></p><p class="close">画像をもう一度クリックで閉じる</p></div>
     </details>
   </article>
 
@@ -162,7 +182,7 @@
     </div>
     <details class="shot">
       <summary><img src="/shots/ltw.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="LETUS Task Watcherのポップアップ。今日の授業と24時間以内の締切を一覧表示"><span class="hint">画像をクリックで詳しく見る</span></summary>
-      <div class="work-head"><dl class="facts"><div><dt>紹介</dt><dd>LMS内の課題を収集し見やすく整理、締め切りをお知らせ</dd></div><div><dt>開発期間</dt><dd>2026年6月〜</dd></div><div><dt>プラットフォーム</dt><dd>Chrome / Edge</dd></div><div><dt>使用技術</dt><dd>Chrome拡張（Manifest V3）、React、TypeScript、Vite</dd></div></dl><p class="links"><a href="https://lms.waiteu.dev/">紹介ページ →</a></p></div>
+      <div class="work-head over"><dl class="facts"><div><dt>紹介</dt><dd>LMS内の課題を収集し見やすく整理、締め切りをお知らせ</dd></div><div><dt>開発期間</dt><dd>2026年6月〜</dd></div><div><dt>プラットフォーム</dt><dd>Chrome / Edge</dd></div><div><dt>使用技術</dt><dd>Chrome拡張（Manifest V3）、React、TypeScript、Vite</dd></div></dl><p class="links"><a href="https://lms.waiteu.dev/">紹介ページ →</a></p><p class="close">画像をもう一度クリックで閉じる</p></div>
     </details>
   </article>
 
@@ -189,12 +209,12 @@
   <section class="small" aria-labelledby="dev">
     <div class="wrap">
       <h3 id="dev">開発中</h3>
-      <!-- 仮: 4件の名前は本人が検討中（Michizure・ハンドルノート・タダシガキ・音漏れチェッカー）。確定するまで公開しない。 -->
+      <!-- 仮: 4件の名前は本人が検討中（Michizure・ハンドルノート・タダシガキ。音漏れの件は名前未定で表示(10/12本人)）。確定するまで公開しない。 -->
       <ul class="dev-list">
-        <li><b>Michizure <span class="st">開発中</span></b><span class="d">旅行の費用をみんなで記録し、最後に誰が誰にいくら払えばよいかを出すウェブサービス。登録は要りません。</span></li>
-        <li><b>ハンドルノート <span class="st">開発中</span></b><span class="d">練習に向く周回ルートを作り、走った後に合図や一時停止のタイミングを振り返れる運転アプリ。</span></li>
-        <li><b>タダシガキ <span class="st">開発中</span></b><span class="d">長い募集要項の締切や必須の条件に色の印を付け、見落としを減らす道具。当てはまるかは判定しない。</span></li>
-        <li><b>音漏れチェッカー <span class="st">開発中</span></b><span class="d">イヤホンの音が外にどれだけ漏れているかを、スマホのマイクで測るアプリ。音量を変えた前後の差が分かる。</span></li>
+        <li><details><summary><b>Michizure <span class="st">開発中</span></b><span class="d">旅行の費用をみんなで記録し、最後に誰が誰にいくら払えばよいかを出すウェブサービス。登録は要りません。</span><ol class="stages" aria-label="進み具合: 公開準備"><li class="done">構想</li><li class="done">試作</li><li class="now">公開準備</li><li>公開</li></ol><span class="more">クリックで詳しく見る</span></summary><dl class="facts"><div><dt>開発期間</dt><dd>2026年8月〜</dd></div><div><dt>プラットフォーム</dt><dd>Web（スマホ対応）</dd></div><div><dt>使用技術</dt><dd>TypeScript、Cloudflare Workers</dd></div></dl></details></li>
+        <li><details><summary><b>ハンドルノート <span class="st">開発中</span></b><span class="d">練習に向く周回ルートを作り、走った後に合図や一時停止のタイミングを振り返れる運転アプリ。</span><ol class="stages" aria-label="進み具合: 試作"><li class="done">構想</li><li class="now">試作</li><li>公開準備</li><li>公開</li></ol><span class="more">クリックで詳しく見る</span></summary><dl class="facts"><div><dt>開発期間</dt><dd>2026年9月〜</dd></div><div><dt>プラットフォーム</dt><dd>iPhone（開発中）</dd></div><div><dt>使用技術</dt><dd>React Native（Expo）</dd></div></dl></details></li>
+        <li><details><summary><b>タダシガキ <span class="st">開発中</span></b><span class="d">長い募集要項の締切や必須の条件に色の印を付け、見落としを減らす道具。当てはまるかは判定しない。</span><ol class="stages" aria-label="進み具合: 試作"><li class="done">構想</li><li class="now">試作</li><li>公開準備</li><li>公開</li></ol><span class="more">クリックで詳しく見る</span></summary><dl class="facts"><div><dt>開発期間</dt><dd>2026年10月〜</dd></div><div><dt>プラットフォーム</dt><dd>Web（スマホ可）</dd></div><div><dt>使用技術</dt><dd>TypeScript、Astro</dd></div></dl></details></li>
+        <li><details><summary><b>名前未定のアプリ <span class="st">開発中</span></b><span class="d">イヤホンの音が外にどれだけ漏れているかを、スマホのマイクで測るアプリ。音量を変えた前後の差が分かる。</span><ol class="stages" aria-label="進み具合: 試作"><li class="done">構想</li><li class="now">試作</li><li>公開準備</li><li>公開</li></ol><span class="more">クリックで詳しく見る</span></summary><dl class="facts"><div><dt>開発期間</dt><dd>2026年10月〜</dd></div><div><dt>プラットフォーム</dt><dd>iPhone（先行）</dd></div></dl></details></li>
       </ul>
     </div>
   </section>

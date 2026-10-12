@@ -23,216 +23,97 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#f7f4ef; --card:#fbf9f5; --ink:#2b2723; --sub:#6a6156;
-    --rule:#2b2723; --rule-soft:#ded7ca; --acc:#a84726; --acc-raw:#d9724c;
-    --stripe:#f2ede4; --dev:#8a6a43;
-  }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --paper:#1a1613; --card:#231d18; --ink:#f2ede6; --sub:rgba(242,237,230,.64);
-      --rule:#f2ede6; --rule-soft:rgba(242,237,230,.18); --acc:#ef9873; --acc-raw:#e8875f;
-      --stripe:#221d18; --dev:#c9a06a;
-    }
-  }
-
+  :root{--paper:#f7f4ef;--card:#fbf9f5;--ink:#2b2723;--sub:#6a6156;--line:#ded7ca;--acc:#a84726;--acc-raw:#d9724c;--chip:#f2ede4}
+  @media (prefers-color-scheme: dark){:root{--paper:#1a1613;--card:#231d18;--ink:#f2ede6;--sub:rgba(242,237,230,.68);--line:rgba(242,237,230,.18);--acc:#ef9873;--acc-raw:#e8875f;--chip:#221d18}}
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{background:var(--paper);color:var(--ink);
-    font-family:"IBM Plex Sans JP",sans-serif;line-height:1.75;font-size:15px;
-    -webkit-font-smoothing:antialiased}
-  .mono{font-family:"IBM Plex Mono",monospace}
-  a{color:var(--acc);text-decoration:underline;text-underline-offset:3px}
-  :focus-visible{outline:2px solid var(--acc);outline-offset:3px}
-  .wrap{max-width:880px;margin:0 auto;padding:0 20px}
-
-  /* ── マストヘッド ── */
-  header{border-bottom:3px solid var(--rule);padding:26px 0 18px}
-  .mast{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px}
-  .mast h1{margin:0;font-size:30px;font-weight:700;letter-spacing:.01em}
-  .mast .what{font-size:14px;color:var(--sub)}
-  .mast-note{margin:12px 0 0;font-size:12.5px;color:var(--sub)}
-  .mast-note b{color:var(--ink);font-weight:700}
-
-  section{padding:26px 0;border-bottom:1px solid var(--rule-soft)}
-  h2{margin:0 0 14px;font-size:16px;font-weight:700;letter-spacing:.02em;
-    padding-left:12px;border-left:4px solid var(--ink)}
-
-  /* ── サービス ── */
-  .tools{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  @media(max-width:680px){.tools{grid-template-columns:1fr}}
-  .tool{border:1px solid var(--rule);background:var(--card);display:flex;flex-direction:column}
-  .tool-shot{display:block;border-bottom:1px solid var(--rule);background:var(--card)}
-  .tool-shot img{width:100%;height:auto;display:block;aspect-ratio:16/10;object-fit:cover}
-  .tool-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}
-  .tool-name{margin:0;font-size:19px;font-weight:700;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  .tool-name small{font-weight:400;font-size:12px;color:var(--sub)}
-  .st{display:inline-block;padding:1px 8px;border:1px solid var(--acc);color:var(--acc);
-    font-size:11px;border-radius:3px;font-weight:500;white-space:nowrap}
-  .st.dev{border-color:var(--dev);color:var(--dev);border-style:dashed}
-  .tool-does{margin:6px 0 12px;font-size:13.5px;color:var(--sub)}
-  table.spec{border-collapse:collapse;width:100%;font-size:13px;margin-top:auto}
-  .spec th{white-space:nowrap;text-align:left;font-weight:500;color:var(--sub);
-    padding:5px 14px 5px 0;vertical-align:top;width:7em}
-  .spec td{padding:5px 0}
-  .spec tr+tr{border-top:1px dashed var(--rule-soft)}
-  .tool-go{margin:12px 0 0;font-size:14px}
-
-  /* ── ポリシー ── */
-  ul.rules{margin:0;padding:0;list-style:none;counter-reset:r;
-    display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
-  @media(max-width:680px){ul.rules{grid-template-columns:1fr}}
-  ul.rules li{counter-increment:r;padding:10px 0 10px 38px;position:relative;
-    font-size:13.5px;color:var(--sub);border-top:1px solid var(--rule-soft)}
-  ul.rules li:nth-child(1),ul.rules li:nth-child(2){border-top:0}
-  @media(max-width:680px){ul.rules li:nth-child(2){border-top:1px solid var(--rule-soft)}}
-  ul.rules li::before{content:counter(r,decimal-leading-zero);position:absolute;left:0;top:10px;
-    font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--acc);font-weight:500}
-  ul.rules b{color:var(--ink);font-weight:700;display:block}
-
-  /* ── ロードマップ＝縦タイムライン ── */
-  ol.roadmap{list-style:none;margin:0;padding:0;position:relative}
-  ol.roadmap::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:2px;background:var(--rule-soft)}
-  ol.roadmap li{position:relative;padding:0 0 20px 28px}
-  ol.roadmap li:last-child{padding-bottom:0}
-  ol.roadmap li::before{content:"";position:absolute;left:0;top:6px;width:12px;height:12px;border-radius:50%;
-    background:var(--acc);box-sizing:border-box}
-  ol.roadmap li.next::before{background:var(--paper);border:2px dashed var(--acc)}
-  .rm-title{margin:0;font-size:15px;font-weight:700;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  .rm-desc{margin:2px 0 0;font-size:13px;color:var(--sub)}
-
-  /* ── コンタクト ── */
-  .links{display:grid;gap:10px;grid-template-columns:repeat(3,1fr)}
-  @media(max-width:680px){.links{grid-template-columns:1fr}}
-  .link-item{display:flex;align-items:center;gap:12px;padding:12px 14px;
-    border:1px solid var(--rule-soft);background:var(--card);text-decoration:none;color:inherit}
-  .link-item:hover{border-color:var(--acc)}
-  .badge{width:34px;height:34px;display:flex;align-items:center;justify-content:center;
-    background:var(--stripe);font-size:12px;font-weight:700;color:var(--ink);flex:none}
-  .link-label{display:block;font-size:14px;font-weight:600;color:var(--ink);line-height:1.4}
-  .link-sub{display:block;font-size:12px;color:var(--sub);line-height:1.5}
-
-  footer{padding:20px 0 48px;font-size:12px;color:var(--sub)}
-  footer .wrap{display:flex;flex-direction:column;gap:6px}
+  body{background:var(--paper);color:var(--ink);font:16px/1.75 "IBM Plex Sans JP",system-ui,-apple-system,"Hiragino Sans",sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:var(--acc)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px}
+  header{padding:44px 0 8px}
+  h1{margin:0;font-size:44px;line-height:1.1;letter-spacing:-.02em}
+  .lead{margin:14px 0 0;font-size:18px;font-weight:500}
+  .note{margin:10px 0 0;font-size:13.5px;color:var(--sub)}
+  .contact{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 8px}
+  .contact a{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border:1px solid var(--ink);border-radius:999px;text-decoration:none;color:var(--ink);font-weight:700;font-size:14px;background:var(--card)}
+  .contact a.main{background:var(--ink);color:var(--paper)}
+  h2{margin:44px 0 14px;font-size:13px;letter-spacing:.14em;color:var(--sub);font-weight:700;border-top:1px solid var(--line);padding-top:18px}
+  .cards{display:grid;gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .card img{display:block;width:100%;height:auto;border-bottom:1px solid var(--line)}
+  .card .body{padding:16px 18px 18px}
+  .name{margin:0;font-size:19px;font-weight:700;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .st{font-size:12px;font-weight:700;padding:1px 9px;border:1px solid var(--acc);color:var(--acc);border-radius:999px}
+  .st.wip{border-color:var(--sub);color:var(--sub)}
+  .what{margin:6px 0 0;color:var(--sub);font-size:15px}
+  .links{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 0 0;font-size:14.5px}
+  .dev-list{display:grid;gap:10px}
+  .dev{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:14px 16px}
+  .rules{margin:0;padding:0;list-style:none;display:grid;gap:14px}
+  .rules b{display:block}
+  .rules span{color:var(--sub);font-size:15px}
+  footer{margin-top:52px;padding:22px 0 56px;border-top:1px solid var(--line);font-size:12.5px;color:var(--sub)}
+  footer .wrap{display:grid;gap:6px}
   footer a{color:var(--sub)}
+  @media (min-width:640px){.cards{grid-template-columns:1fr 1fr}h1{font-size:54px}}
 </style>
 </head>
 <body>
 
 <header>
   <div class="wrap">
-    <div class="mast">
-      <h1>waiteu</h1>
-      <span class="what">学生のためのツールを、ひとりでつくって動かしています。</span>
-    </div>
-    <p class="mast-note"><b>東京理科大学の情報を扱うものは、大学とは無関係の非公式サービスです。</b></p>
+    <h1>waiteu</h1>
+    <p class="lead">学生のためのツールを、ひとりでつくって動かしています。</p>
+    <p class="note">東京理科大学の情報を扱うものは、大学とは無関係の非公式サービスです。</p>
+    <nav class="contact" aria-label="連絡先">
+      <a class="main" href="mailto:contact@waiteu.dev">メール</a>
+      <a href="https://x.com/waiteu_dev" target="_blank" rel="noopener">X</a>
+      <a href="https://github.com/waiteu-git" target="_blank" rel="noopener">GitHub</a>
+    </nav>
   </div>
 </header>
 
 <main>
-  <section aria-labelledby="services-heading">
-    <div class="wrap">
-      <h2 id="services-heading">サービス</h2>
-      <div class="tools">
-        <div class="tool">
-          <span class="tool-shot"><img src="/shots/ltw.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="LETUS Task Watcherのポップアップ。今日の授業と24時間以内の締切を一覧表示"></span>
-          <div class="tool-body">
-            <p class="tool-name">LETUS Task Watcher <small>ブラウザ拡張</small> <span class="st">公開中</span></p>
-            <p class="tool-does">LETUSの課題期限を集めて締切前に知らせる。CLASSの時間割も出す。</p>
-            <table class="spec">
-              <tr><th>対応ブラウザ</th><td>Chrome / Edge</td></tr>
-            </table>
-            <p class="tool-go"><a href="https://lms.waiteu.dev/">紹介ページへ →</a></p>
-          </div>
+  <div class="wrap">
+    <h2>公開中</h2>
+    <div class="cards">
+      <article class="card">
+        <img src="/shots/ltw.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="LETUS Task Watcherのポップアップ。今日の授業と24時間以内の締切を一覧表示">
+        <div class="body">
+          <p class="name">LETUS Task Watcher <span class="st">公開中</span></p>
+          <p class="what">ブラウザ拡張（Chrome / Edge）。LETUSの課題期限を集めて締切前に知らせる。CLASSの時間割も出す。</p>
+          <p class="links"><a href="https://lms.waiteu.dev/">紹介ページ →</a></p>
         </div>
-        <div class="tool">
-          <span class="tool-shot"><img src="/shots/litus.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="リタスのホーム画面。いまの授業と残り時間、出席の受付状況、届いた掲示をまとめて表示"></span>
-          <div class="tool-body">
-            <p class="tool-name">リタス <small>スマホアプリ</small> <span class="st">配信中</span></p>
-            <p class="tool-does">時間割・出席・課題をスマホひとつに。朝これだけ見れば足りるように作っている。</p>
-            <table class="spec">
-              <tr><th>対応OS</th><td>iOS / Android</td></tr>
-              <tr><th>公開</th><td>App StoreとGoogle Playで配信中</td></tr>
-            </table>
-            <p class="tool-go"><a href="https://apps.apple.com/jp/app/id6799900160">App Storeで見る →</a></p>
-            <p class="tool-go"><a href="https://play.google.com/store/apps/details?id=dev.waiteu.litus">Google Playで見る →</a></p>
-            <p class="tool-go"><a href="https://litus.waiteu.dev/">くわしく →</a></p>
-          </div>
+      </article>
+      <article class="card">
+        <img src="/shots/litus.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="リタスのホーム画面。いまの授業と残り時間、出席の受付状況、届いた掲示をまとめて表示">
+        <div class="body">
+          <p class="name">リタス <span class="st">配信中</span></p>
+          <p class="what">スマホアプリ（iOS / Android）。時間割・出席・課題をスマホひとつに。朝これだけ見れば足りるように作っている。</p>
+          <p class="links"><a href="https://apps.apple.com/jp/app/id6799900160">App Store →</a><a href="https://play.google.com/store/apps/details?id=dev.waiteu.litus">Google Play →</a><a href="https://litus.waiteu.dev/">くわしく →</a></p>
         </div>
-      </div>
+      </article>
     </div>
-  </section>
 
-  <section aria-labelledby="policy-heading">
-    <div class="wrap">
-      <h2 id="policy-heading">ポリシー</h2>
-      <ul class="rules">
-        <li><b>大学の情報に届く機能は無料のままにします。</b>課題の締切や時間割にたどり着く機能で、お金を取ることはしません。有料でお願いするのは自分がつくった快適さの部分だけです。負担が無視できなくなったときに限ります。長期の前払いはなく、返金にも応じます。黙って始めることはしません。</li>
-        <li><b>パスワードを読み取りません。</b>ログイン情報に触れない設計にしています。</li>
-        <li><b>必要のないデータを持ちません。</b>持っているデータを外部に渡すこともありません。広告は載せません。行動の追跡もしません。</li>
-        <li><b>動かし続けることを優先します。</b>機能を足すより壊れないことを選びます。学期の途中で止まらないことがいちばんの機能だと思っています。</li>
-        <li><b>公式のサービスを置き換えません。</b>LETUSとCLASSはこれからも大学の正式な窓口です。ここでつくるのはそこへ辿り着くまでを短くする道具だけです。</li>
-        <li><b>何をしているか説明できる状態にします。</b>変更履歴を公開し、権限や取得するデータの範囲を明示します。</li>
-      </ul>
+    <h2>開発中</h2>
+    <!-- 仮: 4件の名前は本人が検討中（Michizure・運転練習ナビ・規則の監査・音漏れチェック）。確定するまで公開しない。 -->
+    <div class="dev-list">
+      <div class="dev"><p class="name">Michizure <span class="st wip">開発中</span></p><p class="what">旅行の費用を記録して、みんなで精算するウェブサービス。</p></div>
+      <div class="dev"><p class="name">運転練習ナビ <span class="st wip">開発中</span></p><p class="what">運転の練習に使える場所をまとめ、ルートとして回れるようにするアプリ。</p></div>
+      <div class="dev"><p class="name">規則の監査 <span class="st wip">開発中</span></p><p class="what">自分に関わる規則を、原文つきで見落としなく読むための道具。条件に当てはまるかは判定せず、原文と該当する箇所を示す。</p></div>
+      <div class="dev"><p class="name">音漏れチェック <span class="st wip">開発中</span></p><p class="what">イヤホンの音漏れを調べるアプリ。</p></div>
     </div>
-  </section>
 
-  <section aria-labelledby="roadmap-heading">
-    <div class="wrap">
-      <h2 id="roadmap-heading">ロードマップ</h2>
-      <!-- 仮: 開発中4件の名前は本人が検討中（Michizure・運転練習ナビ・規則の監査・音漏れチェック）。確定するまで公開しない。 -->
-      <ol class="roadmap">
-        <li>
-          <p class="rm-title">LETUS Task Watcher <span class="st">公開中</span></p>
-          <p class="rm-desc">課題の自動収集と締切前の通知</p>
-        </li>
-        <li>
-          <p class="rm-title">CLASS連携 <span class="st">公開中</span></p>
-          <p class="rm-desc">時間割を課題と同じ場所に</p>
-        </li>
-        <li>
-          <p class="rm-title">リタス <span class="st">配信中</span></p>
-          <p class="rm-desc">スマホアプリ。App StoreとGoogle Playで配信中</p>
-        </li>
-        <li>
-          <p class="rm-title">Michizure <span class="st">開発中</span></p>
-          <p class="rm-desc">旅行の費用を記録して、みんなで精算するウェブサービス。</p>
-        </li>
-        <li>
-          <p class="rm-title">運転練習ナビ <span class="st">開発中</span></p>
-          <p class="rm-desc">運転の練習に使える場所をまとめ、ルートとして回れるようにするアプリ。</p>
-        </li>
-        <li>
-          <p class="rm-title">規則の監査 <span class="st">開発中</span></p>
-          <p class="rm-desc">自分に関わる規則を、原文つきで見落としなく読むための道具。条件に当てはまるかは判定せず、原文と該当する箇所を示す。</p>
-        </li>
-        <li>
-          <p class="rm-title">音漏れチェック <span class="st">開発中</span></p>
-          <p class="rm-desc">イヤホンの音漏れを調べるアプリ。</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section aria-labelledby="contact-heading">
-    <div class="wrap">
-      <h2 id="contact-heading">コンタクト</h2>
-      <nav class="links" aria-label="外部リンク">
-        <a class="link-item" href="https://github.com/waiteu-git" target="_blank" rel="noopener">
-          <span class="badge mono">GH</span>
-          <span><span class="link-label">GitHub</span><span class="link-sub">github.com/waiteu-git</span></span>
-        </a>
-        <a class="link-item" href="https://x.com/waiteu_dev" target="_blank" rel="noopener">
-          <span class="badge mono">X</span>
-          <span><span class="link-label">X</span><span class="link-sub">@waiteu_dev</span></span>
-        </a>
-        <a class="link-item" href="mailto:contact@waiteu.dev">
-          <span class="badge mono">@</span>
-          <span><span class="link-label">メール</span><span class="link-sub">contact@waiteu.dev</span></span>
-        </a>
-      </nav>
-    </div>
-  </section>
+    <h2>つくり方の方針</h2>
+    <ul class="rules">
+      <li><b>大学の情報に届く機能は無料のままにします。</b><span>課題の締切や時間割にたどり着く機能で、お金を取ることはしません。有料でお願いするのは自分がつくった快適さの部分だけです。負担が無視できなくなったときに限ります。長期の前払いはなく、返金にも応じます。黙って始めることはしません。</span></li>
+      <li><b>パスワードを読み取りません。</b><span>ログイン情報に触れない設計にしています。</span></li>
+      <li><b>必要のないデータを持ちません。</b><span>持っているデータを外部に渡すこともありません。広告は載せません。行動の追跡もしません。</span></li>
+      <li><b>動かし続けることを優先します。</b><span>機能を足すより壊れないことを選びます。学期の途中で止まらないことがいちばんの機能だと思っています。</span></li>
+      <li><b>公式のサービスを置き換えません。</b><span>LETUSとCLASSはこれからも大学の正式な窓口です。ここでつくるのはそこへ辿り着くまでを短くする道具だけです。</span></li>
+      <li><b>何をしているか説明できる状態にします。</b><span>変更履歴を公開し、権限や取得するデータの範囲を明示します。</span></li>
+    </ul>
+  </div>
 </main>
 
 <footer>

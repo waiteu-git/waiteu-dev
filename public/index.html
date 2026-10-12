@@ -111,6 +111,22 @@
   .dev-list b{font-size:16px}
   .dev-list .st{margin-left:6px;border-color:var(--sub);color:var(--sub)}
   .dev-list span.d{color:var(--sub);font-size:14.5px;line-height:1.65}
+  /* 開発中: 暗い面に文字を載せる（画像の代わり） */
+  .dev-list{display:grid;gap:12px}
+  .dev-list>li{padding:0;border-top:0}
+  .dev-list>li details{background:#1d1814;color:#f4efe8;border-radius:12px;padding:16px 18px;border:1px solid rgba(242,237,230,.14)}
+  .dev-list>li b{color:#f4efe8}
+  .dev-list>li .st{border-color:rgba(244,239,232,.6);color:rgba(244,239,232,.85)}
+  .dev-list>li span.d{color:rgba(244,239,232,.78)}
+  .dev-list>li .more{color:#ffc9ad}
+  .dev-list>li .stages li{color:rgba(244,239,232,.62)}
+  .dev-list>li .stages li::before{background:rgba(244,239,232,.16)}
+  .dev-list>li .stages li.done::before{background:#d9724c;opacity:.6}
+  .dev-list>li .stages li.now::before{background:#ffb08c}
+  .dev-list>li .stages li.now{color:#ffc9ad}
+  .dev-list>li .facts{background:rgba(255,255,255,.05);border-color:rgba(242,237,230,.14);margin-top:14px}
+  .dev-list>li .facts dt{color:rgba(244,239,232,.68)}
+  .dev-list>li .facts dd{color:#f4efe8}
   .rules{margin:0;padding:0;list-style:none;display:grid;gap:14px}
   .rules b{display:block}
   .rules span{color:var(--sub);font-size:15px}

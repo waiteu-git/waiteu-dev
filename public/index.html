@@ -46,11 +46,21 @@
   .work{border-top:1px solid var(--line);padding:28px 0 56px}
   .work-head{max-width:1040px;margin:0 auto;padding:0 20px}
   .num{display:block;font-size:14px;letter-spacing:.14em;color:var(--sub)}
-  .work h3{margin:6px 0 0;font-size:30px;line-height:1.25;letter-spacing:-.01em}
+  .work h3{color:var(--ink);letter-spacing:-.01em;margin:6px 0 0;font-size:30px;line-height:1.25;letter-spacing:-.01em}
   .st{display:inline-block;vertical-align:middle;margin-left:8px;font-size:12px;font-weight:700;padding:1px 9px;border:1px solid var(--acc);color:var(--acc);border-radius:999px;letter-spacing:0}
   .what{margin:10px 0 0;color:var(--sub);font-size:15.5px}
   .shot{display:block;margin:24px 0;background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .shot img{display:block;width:100%;height:auto;max-width:1040px;margin:0 auto}
+  .shot summary{list-style:none;cursor:pointer;display:block}
+  .shot summary::-webkit-details-marker{display:none}
+  .shot summary:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
+  .shot .hint{display:block;max-width:1040px;margin:0 auto;padding:8px 20px;font-size:13px;font-weight:700;color:var(--acc)}
+  .shot[open] .hint{display:none}
+  .facts{margin:0;padding:16px 0 4px;display:grid;gap:10px}
+  .facts div{display:grid;gap:0}
+  .facts dt{font-size:12.5px;font-weight:700;letter-spacing:.08em;color:var(--sub)}
+  .facts dd{margin:0;font-size:15px}
+  .shot .links{padding:12px 0 16px}
   .links{display:flex;flex-wrap:wrap;gap:8px 20px;margin:0;font-size:16px;font-weight:700}
   .links a{text-decoration:none;border-bottom:2px solid var(--acc-raw);padding-bottom:1px}
 
@@ -63,6 +73,15 @@
   h4.pg{margin:28px 0 12px;font-size:15px}
   h4.pg:first-of-type{margin-top:0}
   .pg-body{margin:0;color:var(--sub);font-size:15px;line-height:1.75}
+  .tabset{max-width:720px;margin:0 auto;padding:8px 20px 0}
+  .tabset>input{position:absolute;opacity:0;pointer-events:none}
+  .tablist{display:flex;gap:8px;margin:20px 0 0;border-bottom:1px solid var(--line)}
+  .tablist label{padding:11px 16px;font-weight:700;font-size:15px;border:1px solid transparent;border-bottom:0;border-radius:10px 10px 0 0;cursor:pointer;color:var(--sub)}
+  #t1:checked~.tablist label[for=t1],#t2:checked~.tablist label[for=t2]{color:var(--ink);background:var(--card);border-color:var(--line);margin-bottom:-1px}
+  #t1:focus-visible~.tablist label[for=t1],#t2:focus-visible~.tablist label[for=t2]{outline:2px solid var(--acc);outline-offset:2px}
+  .panel{display:none}
+  #t1:checked~.panels #p1,#t2:checked~.panels #p2{display:block}
+  .tabset .group{padding-left:0;padding-right:0}
   h3{margin:0 0 16px;font-size:13px;letter-spacing:.14em;color:var(--sub);font-weight:700}
   .dev-list{list-style:none;margin:0;padding:0}
   .dev-list li{padding:12px 0;border-top:1px dashed var(--line);display:grid;gap:2px}
@@ -109,33 +128,42 @@
 </header>
 
 <main>
+  <div class="tabset">
+    <input type="radio" name="works" id="t1" checked>
+    <input type="radio" name="works" id="t2">
+    <div class="tablist">
+      <label for="t1">東京理科大学の学生向け</label>
+      <label for="t2">一般向け</label>
+    </div>
+    <div class="panels">
+      <div class="panel" id="p1">
   <div class="group" id="g1">
     <h2>東京理科大学の学生向け</h2>
     <p>LETUSとCLASSの情報を扱う、大学とは無関係の非公式サービスです。</p>
   </div>
 
-  <article class="work" aria-labelledby="w1">
-    <div class="work-head">
-      <span class="num mono">01 / 公開中</span>
-      <h3 id="w1">LETUS Task Watcher <span class="st">公開中</span></h3>
-      <p class="what">LETUSの課題の締切を拡張機能が集めて、締切の前にブラウザで知らせます。CLASSの時間割も表示します。（Chrome / Edge）</p>
-    </div>
-    <div class="shot"><img src="/shots/ltw.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="LETUS Task Watcherのポップアップ。今日の授業と24時間以内の締切を一覧表示"></div>
-    <div class="work-head">
-      <p class="links"><a href="https://lms.waiteu.dev/">紹介ページ →</a></p>
-    </div>
-  </article>
-
   <article class="work" aria-labelledby="w2">
     <div class="work-head">
-      <span class="num mono">02 / 配信中</span>
+      <span class="num mono">01 / 配信中</span>
       <h3 id="w2">リタス <span class="st">配信中</span></h3>
       <p class="what">理科大生のための東京理科大学非公式アプリ。LETUSとCLASSをひとつに、課題の出し忘れと掲示の見逃しを防ぐ。（iOS / Android）</p>
     </div>
-    <div class="shot"><img src="/shots/litus.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="リタスのホーム画面。いまの授業と残り時間、出席の受付状況、届いた掲示をまとめて表示"></div>
+    <details class="shot">
+      <summary><img src="/shots/litus.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="リタスのホーム画面。いまの授業と残り時間、出席の受付状況、届いた掲示をまとめて表示"><span class="hint">画像をクリックで詳しく見る</span></summary>
+      <div class="work-head"><dl class="facts"><div><dt>対応</dt><dd>iOS / Android</dd></div><div><dt>扱う情報</dt><dd>LETUS・CLASSの課題、時間割、出席、掲示。成績は取得しません</dd></div><div><dt>ログイン</dt><dd>大学の公式ログイン画面を使い、ID・パスワードは保存しません</dd></div><div><dt>立場</dt><dd>東京理科大学とは無関係の非公式アプリ</dd></div></dl><p class="links"><a href="https://litus.waiteu.dev/">紹介ページ →</a></p></div>
+    </details>
+  </article>
+
+  <article class="work" aria-labelledby="w1">
     <div class="work-head">
-      <p class="links"><a href="https://litus.waiteu.dev/">紹介ページ →</a></p>
+      <span class="num mono">02 / 公開中</span>
+      <h3 id="w1">LETUS Task Watcher <span class="st">公開中</span></h3>
+      <p class="what">LETUSの課題の締切を拡張機能が集めて、締切の前にブラウザで知らせます。CLASSの時間割も表示します。（Chrome / Edge）</p>
     </div>
+    <details class="shot">
+      <summary><img src="/shots/ltw.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="LETUS Task Watcherのポップアップ。今日の授業と24時間以内の締切を一覧表示"><span class="hint">画像をクリックで詳しく見る</span></summary>
+      <div class="work-head"><dl class="facts"><div><dt>対応</dt><dd>Chrome / Edge</dd></div><div><dt>できること</dt><dd>LETUSの課題の締切を集めて、締切の前にブラウザで知らせる。CLASSの時間割も表示</dd></div><div><dt>ログイン</dt><dd>パスワードを読み取りません</dd></div><div><dt>立場</dt><dd>東京理科大学とは無関係の非公式の拡張機能</dd></div></dl><p class="links"><a href="https://lms.waiteu.dev/">紹介ページ →</a></p></div>
+    </details>
   </article>
 
   <section class="small policy" aria-labelledby="pol1">
@@ -152,8 +180,10 @@
     </div>
   </section>
 
-  <div class="group sec2" id="g2">
-    <h2>それ以外</h2>
+      </div>
+      <div class="panel" id="p2">
+  <div class="group" id="g2">
+    <h2>一般向け</h2>
     <p>大学とは関係なく、学生に限らない人に向けて作っているもの。</p>
   </div>
   <section class="small" aria-labelledby="dev">
@@ -176,6 +206,9 @@
     </div>
   </section>
 
+      </div>
+    </div>
+  </div>
 </main>
 
 <footer>

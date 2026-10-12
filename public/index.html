@@ -30,32 +30,61 @@
   body{background:var(--paper);color:var(--ink);font:16px/1.75 "IBM Plex Sans JP",system-ui,-apple-system,"Hiragino Sans",sans-serif;-webkit-font-smoothing:antialiased}
   a{color:var(--acc)}
   .wrap{max-width:720px;margin:0 auto;padding:0 20px}
-  header{padding:44px 0 8px}
-  h1{margin:0;font-size:44px;line-height:1.1;letter-spacing:-.02em}
-  .lead{margin:14px 0 0;font-size:18px;font-weight:500}
-  .note{margin:10px 0 0;font-size:13.5px;color:var(--sub)}
-  .contact{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 8px}
-  .contact a{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border:1px solid var(--ink);border-radius:999px;text-decoration:none;color:var(--ink);font-weight:700;font-size:14px;background:var(--card)}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+
+  /* 先頭 */
+  header{padding:40px 0 36px}
+  h1{margin:0;font-size:48px;line-height:1.05;letter-spacing:-.025em}
+  .lead{margin:14px 0 0;font-size:18px;font-weight:500;line-height:1.6}
+  .note{margin:12px 0 0;font-size:13.5px;color:var(--sub);padding-left:10px;border-left:2px solid var(--acc-raw)}
+  .contact{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 0}
+  .contact a{display:inline-flex;align-items:center;padding:10px 16px;border:1px solid var(--ink);border-radius:999px;text-decoration:none;color:var(--ink);font-weight:700;font-size:14px;background:var(--card)}
   .contact a.main{background:var(--ink);color:var(--paper)}
-  h2{margin:44px 0 14px;font-size:13px;letter-spacing:.14em;color:var(--sub);font-weight:700;border-top:1px solid var(--line);padding-top:18px}
-  .cards{display:grid;gap:16px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-  .card img{display:block;width:100%;height:auto;border-bottom:1px solid var(--line)}
-  .card .body{padding:16px 18px 18px}
-  .name{margin:0;font-size:19px;font-weight:700;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-  .st{font-size:12px;font-weight:700;padding:1px 9px;border:1px solid var(--acc);color:var(--acc);border-radius:999px}
-  .st.wip{border-color:var(--sub);color:var(--sub)}
-  .what{margin:6px 0 0;color:var(--sub);font-size:15px}
-  .links{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 0 0;font-size:14.5px}
-  .dev-list{display:grid;gap:10px}
-  .dev{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:14px 16px}
+
+  /* 作品 */
+  .work{border-top:1px solid var(--line);padding:28px 0 56px}
+  .work-head{max-width:1040px;margin:0 auto;padding:0 20px}
+  .num{display:block;font-size:14px;letter-spacing:.14em;color:var(--sub)}
+  .work h3{margin:6px 0 0;font-size:30px;line-height:1.25;letter-spacing:-.01em}
+  .st{display:inline-block;vertical-align:middle;margin-left:8px;font-size:12px;font-weight:700;padding:1px 9px;border:1px solid var(--acc);color:var(--acc);border-radius:999px;letter-spacing:0}
+  .what{margin:10px 0 0;color:var(--sub);font-size:15.5px}
+  .shot{display:block;margin:24px 0;background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .shot img{display:block;width:100%;height:auto;max-width:1040px;margin:0 auto}
+  .links{display:flex;flex-wrap:wrap;gap:8px 20px;margin:0;font-size:16px;font-weight:700}
+  .links a{text-decoration:none;border-bottom:2px solid var(--acc-raw);padding-bottom:1px}
+
+  /* 小さな一覧と方針 */
+  section.small{border-top:1px solid var(--line);padding:32px 0 8px}
+  .group{max-width:1040px;margin:0 auto;padding:44px 20px 4px}
+  .group h2{margin:0;font-size:22px;letter-spacing:-.01em}
+  .group p{margin:6px 0 0;color:var(--sub);font-size:14.5px}
+  .group.sec2{border-top:1px solid var(--ink);margin-top:24px;padding-top:36px}
+  h3{margin:0 0 16px;font-size:13px;letter-spacing:.14em;color:var(--sub);font-weight:700}
+  .dev-list{list-style:none;margin:0;padding:0}
+  .dev-list li{padding:12px 0;border-top:1px dashed var(--line);display:grid;gap:2px}
+  .dev-list li:first-child{border-top:0}
+  .dev-list b{font-size:16px}
+  .dev-list .st{margin-left:6px;border-color:var(--sub);color:var(--sub)}
+  .dev-list span.d{color:var(--sub);font-size:14.5px;line-height:1.65}
   .rules{margin:0;padding:0;list-style:none;display:grid;gap:14px}
   .rules b{display:block}
   .rules span{color:var(--sub);font-size:15px}
-  footer{margin-top:52px;padding:22px 0 56px;border-top:1px solid var(--line);font-size:12.5px;color:var(--sub)}
+  .policy{padding-bottom:8px}
+
+  footer{margin-top:48px;padding:22px 0 56px;border-top:1px solid var(--line);font-size:12.5px;color:var(--sub)}
   footer .wrap{display:grid;gap:6px}
   footer a{color:var(--sub)}
-  @media (min-width:640px){.cards{grid-template-columns:1fr 1fr}h1{font-size:54px}}
+
+  @media (min-width:720px){
+    h1{font-size:64px}
+    header{padding:72px 0 56px}
+    .work{padding:40px 0 80px}
+    .work h3{font-size:40px}
+    .shot{margin:36px 0}
+    .what{font-size:17px;max-width:640px}
+    .wrap{padding:0 24px}
+    .work-head{padding:0 24px}
+  }
 </style>
 </head>
 <body>
@@ -74,46 +103,65 @@
 </header>
 
 <main>
-  <div class="wrap">
-    <h2>公開中</h2>
-    <div class="cards">
-      <article class="card">
-        <img src="/shots/ltw.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="LETUS Task Watcherのポップアップ。今日の授業と24時間以内の締切を一覧表示">
-        <div class="body">
-          <p class="name">LETUS Task Watcher <span class="st">公開中</span></p>
-          <p class="what">ブラウザ拡張（Chrome / Edge）。LETUSの課題期限を集めて締切前に知らせる。CLASSの時間割も出す。</p>
-          <p class="links"><a href="https://lms.waiteu.dev/">紹介ページ →</a></p>
-        </div>
-      </article>
-      <article class="card">
-        <img src="/shots/litus.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="リタスのホーム画面。いまの授業と残り時間、出席の受付状況、届いた掲示をまとめて表示">
-        <div class="body">
-          <p class="name">リタス <span class="st">配信中</span></p>
-          <p class="what">スマホアプリ（iOS / Android）。時間割・出席・課題をスマホひとつに。朝これだけ見れば足りるように作っている。</p>
-          <p class="links"><a href="https://apps.apple.com/jp/app/id6799900160">App Store →</a><a href="https://play.google.com/store/apps/details?id=dev.waiteu.litus">Google Play →</a><a href="https://litus.waiteu.dev/">くわしく →</a></p>
-        </div>
-      </article>
-    </div>
-
-    <h2>開発中</h2>
-    <!-- 仮: 4件の名前は本人が検討中（Michizure・運転練習ナビ・規則の監査・音漏れチェック）。確定するまで公開しない。 -->
-    <div class="dev-list">
-      <div class="dev"><p class="name">Michizure <span class="st wip">開発中</span></p><p class="what">旅行の費用を記録して、みんなで精算するウェブサービス。</p></div>
-      <div class="dev"><p class="name">運転練習ナビ <span class="st wip">開発中</span></p><p class="what">運転の練習に使える場所をまとめ、ルートとして回れるようにするアプリ。</p></div>
-      <div class="dev"><p class="name">規則の監査 <span class="st wip">開発中</span></p><p class="what">自分に関わる規則を、原文つきで見落としなく読むための道具。条件に当てはまるかは判定せず、原文と該当する箇所を示す。</p></div>
-      <div class="dev"><p class="name">音漏れチェック <span class="st wip">開発中</span></p><p class="what">イヤホンの音漏れを調べるアプリ。</p></div>
-    </div>
-
-    <h2>つくり方の方針</h2>
-    <ul class="rules">
-      <li><b>大学の情報に届く機能は無料のままにします。</b><span>課題の締切や時間割にたどり着く機能で、お金を取ることはしません。有料でお願いするのは自分がつくった快適さの部分だけです。負担が無視できなくなったときに限ります。長期の前払いはなく、返金にも応じます。黙って始めることはしません。</span></li>
-      <li><b>パスワードを読み取りません。</b><span>ログイン情報に触れない設計にしています。</span></li>
-      <li><b>必要のないデータを持ちません。</b><span>持っているデータを外部に渡すこともありません。広告は載せません。行動の追跡もしません。</span></li>
-      <li><b>動かし続けることを優先します。</b><span>機能を足すより壊れないことを選びます。学期の途中で止まらないことがいちばんの機能だと思っています。</span></li>
-      <li><b>公式のサービスを置き換えません。</b><span>LETUSとCLASSはこれからも大学の正式な窓口です。ここでつくるのはそこへ辿り着くまでを短くする道具だけです。</span></li>
-      <li><b>何をしているか説明できる状態にします。</b><span>変更履歴を公開し、権限や取得するデータの範囲を明示します。</span></li>
-    </ul>
+  <div class="group" id="g1">
+    <h2>東京理科大学の学生向け</h2>
+    <p>LETUSとCLASSの情報を扱う、大学とは無関係の非公式サービスです。</p>
   </div>
+
+  <article class="work" aria-labelledby="w1">
+    <div class="work-head">
+      <span class="num mono">01 / 公開中</span>
+      <h3 id="w1">LETUS Task Watcher <span class="st">公開中</span></h3>
+      <p class="what">ブラウザ拡張（Chrome / Edge）。LETUSの課題期限を集めて締切前に知らせる。CLASSの時間割も出す。</p>
+    </div>
+    <div class="shot"><img src="/shots/ltw.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="LETUS Task Watcherのポップアップ。今日の授業と24時間以内の締切を一覧表示"></div>
+    <div class="work-head">
+      <p class="links"><a href="https://lms.waiteu.dev/">紹介ページ →</a></p>
+    </div>
+  </article>
+
+  <article class="work" aria-labelledby="w2">
+    <div class="work-head">
+      <span class="num mono">02 / 配信中</span>
+      <h3 id="w2">リタス <span class="st">配信中</span></h3>
+      <p class="what">スマホアプリ（iOS / Android）。時間割・出席・課題をスマホひとつに。朝これだけ見れば足りるように作っている。</p>
+    </div>
+    <div class="shot"><img src="/shots/litus.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="リタスのホーム画面。いまの授業と残り時間、出席の受付状況、届いた掲示をまとめて表示"></div>
+    <div class="work-head">
+      <p class="links"><a href="https://apps.apple.com/jp/app/id6799900160">App Store →</a><a href="https://play.google.com/store/apps/details?id=dev.waiteu.litus">Google Play →</a><a href="https://litus.waiteu.dev/">くわしく →</a></p>
+    </div>
+  </article>
+
+  <div class="group sec2" id="g2">
+    <h2>それ以外</h2>
+    <p>大学とは関係なく、学生に限らない人に向けて作っているもの。</p>
+  </div>
+  <section class="small" aria-labelledby="dev">
+    <div class="wrap">
+      <h3 id="dev">開発中</h3>
+      <!-- 仮: 4件の名前は本人が検討中（Michizure・運転練習ナビ・規則の監査・音漏れチェック）。確定するまで公開しない。 -->
+      <ul class="dev-list">
+        <li><b>Michizure <span class="st">開発中</span></b><span class="d">旅行の費用を記録して、みんなで精算するウェブサービス。</span></li>
+        <li><b>運転練習ナビ <span class="st">開発中</span></b><span class="d">運転の練習に使える場所をまとめ、ルートとして回れるようにするアプリ。</span></li>
+        <li><b>規則の監査 <span class="st">開発中</span></b><span class="d">自分に関わる規則を、原文つきで見落としなく読むための道具。条件に当てはまるかは判定せず、原文と該当する箇所を示す。</span></li>
+        <li><b>音漏れチェック <span class="st">開発中</span></b><span class="d">イヤホンの音漏れを調べるアプリ。</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="small policy" aria-labelledby="pol">
+    <div class="wrap">
+      <h3 id="pol">つくり方の方針</h3>
+      <ul class="rules">
+        <li><b>大学の情報に届く機能は無料のままにします。</b><span>課題の締切や時間割にたどり着く機能で、お金を取ることはしません。有料でお願いするのは自分がつくった快適さの部分だけです。負担が無視できなくなったときに限ります。長期の前払いはなく、返金にも応じます。黙って始めることはしません。</span></li>
+        <li><b>パスワードを読み取りません。</b><span>ログイン情報に触れない設計にしています。</span></li>
+        <li><b>必要のないデータを持ちません。</b><span>持っているデータを外部に渡すこともありません。広告は載せません。行動の追跡もしません。</span></li>
+        <li><b>動かし続けることを優先します。</b><span>機能を足すより壊れないことを選びます。学期の途中で止まらないことがいちばんの機能だと思っています。</span></li>
+        <li><b>公式のサービスを置き換えません。</b><span>LETUSとCLASSはこれからも大学の正式な窓口です。ここでつくるのはそこへ辿り着くまでを短くする道具だけです。</span></li>
+        <li><b>何をしているか説明できる状態にします。</b><span>変更履歴を公開し、権限や取得するデータの範囲を明示します。</span></li>
+      </ul>
+    </div>
+  </section>
 </main>
 
 <footer>

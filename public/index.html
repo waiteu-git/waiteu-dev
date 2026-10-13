@@ -127,6 +127,7 @@
   .dev-list>li .facts{background:rgba(255,255,255,.05);border-color:rgba(242,237,230,.14);margin-top:14px}
   .dev-list>li .facts dt{color:rgba(244,239,232,.68)}
   .dev-list>li .facts dd{color:#f4efe8}
+  .pg-body+.rules{margin-top:14px}
   .rules{margin:0;padding:0;list-style:none;display:grid;gap:14px}
   .rules b{display:block}
   .rules span{color:var(--sub);font-size:15px}
@@ -184,11 +185,10 @@
     <div class="work-head">
       <span class="num mono">01 / 配信中</span>
       <h3 id="w2">リタス <span class="st">配信中</span></h3>
-      <p class="what">理科大生のための東京理科大学非公式アプリ。LETUSとCLASSをひとつに、課題の出し忘れと掲示の見逃しを防ぐ。（iOS / Android）</p>
     </div>
     <details class="shot">
       <summary><img src="/shots/litus.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="リタスのホーム画面。いまの授業と残り時間、出席の受付状況、届いた掲示をまとめて表示"><span class="hint">画像をクリックで詳しく見る</span></summary>
-      <div class="work-head over"><dl class="facts"><div><dt>紹介</dt><dd>複数の学内システムをまとめて学生が使いやすい形にするアプリ</dd></div><div><dt>開発期間</dt><dd>2026年7月〜</dd></div><div><dt>利用者数</dt><dd>52人（2026年10月11日時点）</dd></div><div><dt>プラットフォーム</dt><dd>iOS / Android</dd></div><div><dt>使用技術</dt><dd>React Native（Expo）、TypeScript</dd></div></dl><p class="links"><a href="https://litus.waiteu.dev/">紹介ページ →</a></p><p class="close">画像をもう一度クリックで閉じる</p></div>
+      <div class="work-head over"><dl class="facts"><div><dt>紹介</dt><dd>複数の学内システムをまとめて学生が使いやすい形にするアプリ</dd></div><div><dt>開発期間</dt><dd>2026年7月〜</dd></div><div><dt>利用者数</dt><dd>52人（初回ダウンロード数、2026年10月11日時点）</dd></div><div><dt>プラットフォーム</dt><dd>iOS / Android</dd></div><div><dt>使用技術</dt><dd>React Native（Expo）、TypeScript</dd></div></dl><p class="links"><a href="https://litus.waiteu.dev/">紹介ページ →</a></p><p class="close">画像をもう一度クリックで閉じる</p></div>
     </details>
   </article>
 
@@ -196,11 +196,10 @@
     <div class="work-head">
       <span class="num mono">02 / 公開中</span>
       <h3 id="w1">LETUS Task Watcher <span class="st">公開中</span></h3>
-      <p class="what">LETUSの課題の締切を拡張機能が集めて、締切の前にブラウザで知らせます。CLASSの時間割も表示します。（Chrome / Edge）</p>
     </div>
     <details class="shot">
       <summary><img src="/shots/ltw.png?v=3" width="680" height="425" loading="lazy" decoding="async" alt="LETUS Task Watcherのポップアップ。今日の授業と24時間以内の締切を一覧表示"><span class="hint">画像をクリックで詳しく見る</span></summary>
-      <div class="work-head over"><dl class="facts"><div><dt>紹介</dt><dd>LMS内の課題を収集し見やすく整理、締め切りをお知らせ</dd></div><div><dt>開発期間</dt><dd>2026年6月〜</dd></div><div><dt>プラットフォーム</dt><dd>Chrome / Edge</dd></div><div><dt>使用技術</dt><dd>Chrome拡張（Manifest V3）、React、TypeScript、Vite</dd></div></dl><p class="links"><a href="https://lms.waiteu.dev/">紹介ページ →</a></p><p class="close">画像をもう一度クリックで閉じる</p></div>
+      <div class="work-head over"><dl class="facts"><div><dt>紹介</dt><dd>LMS内の課題を収集し見やすく整理、締め切りをお知らせ</dd></div><div><dt>開発期間</dt><dd>2026年6月〜</dd></div><div><dt>利用者数</dt><dd>週78人（Chromeの週間ユーザー数、2026年10月11日時点）</dd></div><div><dt>プラットフォーム</dt><dd>Chrome / Edge</dd></div><div><dt>使用技術</dt><dd>Chrome拡張（Manifest V3）、React、TypeScript、Vite</dd></div></dl><p class="links"><a href="https://lms.waiteu.dev/">紹介ページ →</a></p><p class="close">画像をもう一度クリックで閉じる</p></div>
     </details>
   </article>
 
@@ -208,7 +207,7 @@
     <div class="wrap">
       <h3 id="pol1">つくり方の方針</h3>
       <ul class="rules">
-        <li><b>大学の情報に届く機能は無料のままにします。</b><span>課題の締切や時間割にたどり着く機能で、お金を取ることはしません。有料でお願いするのは自分がつくった快適さの部分だけです。負担が無視できなくなったときに限ります。長期の前払いはなく、返金にも応じます。黙って始めることはしません。</span></li>
+        <li><b>大学の情報に届く機能は無料のままにします。</b><span>課題・時間割・出席・掲示に届く機能で、お金を取ることはしません。有料でお願いするのは自分がつくった快適さの部分だけで、負担が無視できなくなったときに限ります。長期の前払いはなく、返金にも応じます。黙って始めることはしません。</span></li>
         <li><b>パスワードを読み取りません。</b><span>ログイン情報に触れない設計にしています。</span></li>
         <li><b>必要のないデータを持ちません。</b><span>持っているデータを外部に渡すこともありません。広告は載せません。行動の追跡もしません。</span></li>
         <li><b>動かし続けることを優先します。</b><span>機能を足すより壊れないことを選びます。学期の途中で止まらないことがいちばんの機能だと思っています。</span></li>
@@ -229,10 +228,9 @@
       <h3 id="dev">開発中</h3>
       <!-- 仮: 4件の名前は本人が検討中（Michizure・ハンドルノート・タダシガキ。音漏れの件は名前未定で表示(10/12本人)）。確定するまで公開しない。 -->
       <ul class="dev-list">
-        <li><details><summary><b>Michizure <span class="st">開発中</span></b><span class="d">旅行の費用をみんなで記録し、最後に誰が誰にいくら払えばよいかを出すウェブサービス。登録は要りません。</span><ol class="stages" aria-label="進み具合: 公開準備"><li class="done">構想</li><li class="done">試作</li><li class="now">公開準備</li><li>公開</li></ol><span class="more">クリックで詳しく見る</span></summary><dl class="facts"><div><dt>開発期間</dt><dd>2026年8月〜</dd></div><div><dt>プラットフォーム</dt><dd>Web（スマホ対応）</dd></div><div><dt>使用技術</dt><dd>TypeScript、Cloudflare Workers</dd></div></dl></details></li>
+        <li><details><summary><b>Michizure <span class="st">開発中</span></b><span class="d">旅行の費用をみんなで記録し、最後に誰が誰にいくら払えばよいかを出すウェブサービス。登録は要りません。</span><ol class="stages" aria-label="進み具合: 試作"><li class="done">構想</li><li class="now">試作</li><li>公開準備</li><li>公開</li></ol><span class="more">クリックで詳しく見る</span></summary><dl class="facts"><div><dt>開発期間</dt><dd>2026年8月〜</dd></div><div><dt>プラットフォーム</dt><dd>Web（スマホ対応）</dd></div><div><dt>使用技術</dt><dd>TypeScript、Cloudflare Workers</dd></div></dl></details></li>
         <li><details><summary><b>ハンドルノート <span class="st">開発中</span></b><span class="d">練習に向く周回ルートを作り、走った後に合図や一時停止のタイミングを振り返れる運転アプリ。</span><ol class="stages" aria-label="進み具合: 試作"><li class="done">構想</li><li class="now">試作</li><li>公開準備</li><li>公開</li></ol><span class="more">クリックで詳しく見る</span></summary><dl class="facts"><div><dt>開発期間</dt><dd>2026年9月〜</dd></div><div><dt>プラットフォーム</dt><dd>iPhone（開発中）</dd></div><div><dt>使用技術</dt><dd>React Native（Expo）</dd></div></dl></details></li>
         <li><details><summary><b>タダシガキ <span class="st">開発中</span></b><span class="d">長い募集要項の締切や必須の条件に色の印を付け、見落としを減らす道具。当てはまるかは判定しない。</span><ol class="stages" aria-label="進み具合: 試作"><li class="done">構想</li><li class="now">試作</li><li>公開準備</li><li>公開</li></ol><span class="more">クリックで詳しく見る</span></summary><dl class="facts"><div><dt>開発期間</dt><dd>2026年10月〜</dd></div><div><dt>プラットフォーム</dt><dd>Web（スマホ可）</dd></div><div><dt>使用技術</dt><dd>TypeScript、Astro</dd></div></dl></details></li>
-        <li><details><summary><b>音漏れチェックアプリ（名前未定） <span class="st">開発中</span></b><span class="d">イヤホンの音が外にどれだけ漏れているかを、スマホのマイクで測るアプリ。音量を変えた前後の差が分かる。</span><ol class="stages" aria-label="進み具合: 試作"><li class="done">構想</li><li class="now">試作</li><li>公開準備</li><li>公開</li></ol><span class="more">クリックで詳しく見る</span></summary><dl class="facts"><div><dt>開発期間</dt><dd>2026年10月〜</dd></div><div><dt>プラットフォーム</dt><dd>iPhone（先行）</dd></div></dl></details></li>
       </ul>
     </div>
   </section>
@@ -240,7 +238,11 @@
   <section class="small policy" aria-labelledby="pol2">
     <div class="wrap">
       <h3 id="pol2">つくり方の方針</h3>
-      <p class="pg-body">Michizure など、大学の情報を扱わないサービスの取り扱いは、各サービスの利用規約とプライバシーポリシーに書いています。どのサービスでも、有料にすることを黙って始めることはしません。</p>
+      <p class="pg-body">東京理科大学の情報を扱わないサービスに向けた約束です。</p>
+      <ul class="rules">
+        <li><b>有料にするときは、先に知らせます。</b><span>何が無料のまま残るかを先に伝えます。黙って始めることはしません。</span></li>
+        <li><b>扱う情報と使い道を、サービスごとに書きます。</b><span>各サービスの利用規約とプライバシーポリシーに書いています。</span></li>
+      </ul>
     </div>
   </section>
 

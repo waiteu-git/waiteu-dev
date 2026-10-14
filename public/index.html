@@ -42,6 +42,17 @@
   .contact a{display:inline-flex;align-items:center;padding:10px 16px;border:1px solid var(--ink);border-radius:999px;text-decoration:none;color:var(--ink);font-weight:700;font-size:14px;background:var(--card)}
   .contact a.main{background:var(--ink);color:var(--paper)}
 
+  /* 先頭の「いま開発中」 */
+  .spot{padding:0 0 8px}
+  .spot-card{display:flex;gap:16px;align-items:flex-start;padding:18px;background:#1d1814;color:#f4efe8;border:1px solid rgba(242,237,230,.16);border-radius:14px;text-decoration:none}
+  .spot-card:hover{border-color:#ffc9ad}
+  .spot-card:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+  .spot-logo{width:64px;height:64px;border-radius:14px;flex:none;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+  .spot-body{display:grid;gap:4px;min-width:0}
+  .spot-tag{font-size:12px;font-weight:700;letter-spacing:.08em;color:#ffc9ad}
+  .spot-name{font-size:24px;font-weight:700;line-height:1.2}
+  .spot-desc{font-size:14.5px;color:rgba(244,239,232,.8);line-height:1.7}
+  .spot-go{margin-top:6px;font-weight:700;font-size:14.5px;color:#ffc9ad}
   /* 作品 */
   .work{border-top:1px solid var(--line);padding:28px 0 56px}
   .work-head{max-width:1040px;margin:0 auto;padding:0 20px}
@@ -168,6 +179,20 @@
     </nav>
   </div>
 </header>
+
+<section class="spot" aria-labelledby="spot-h">
+  <div class="wrap">
+    <a class="spot-card" href="https://wayvis.waiteu.dev/">
+      <img class="spot-logo" src="/shots/wayvis-icon-256.webp?v=1" width="64" height="64" alt="" decoding="async">
+      <span class="spot-body">
+        <span class="spot-tag">いま開発中</span>
+        <span class="spot-name" id="spot-h">Wayvis</span>
+        <span class="spot-desc">運転に慣れていない人の練習と道案内のためのアプリ。3D都市モデル PLATEAU の建物を目印に曲がり角を案内し、走った後に合図や一時停止のタイミングを振り返れる。</span>
+        <span class="spot-go">紹介ページを見る →</span>
+      </span>
+    </a>
+  </div>
+</section>
 
 <main>
   <div class="tabset">
